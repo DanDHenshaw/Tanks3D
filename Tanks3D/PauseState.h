@@ -1,13 +1,15 @@
 #pragma once
 
-#include "State.h"
 #include "Game.h"
+#include "Sprite.h"
+#include "SpriteFont.h"
+#include "State.h"
 
 // Inherits the State class from 'State.h'
-class GameState : public State
+class PauseState : public State
 {
 public:
-	GameState(GameDataRef data);
+	PauseState(GameDataRef data);
 
 	void Initialise() override;
 	void Update(float dTime) override;
@@ -19,7 +21,9 @@ private:
 	// Reference to GameData.
 	GameDataRef _data;
 
-	float gAngle = 0;
+	DirectX::SpriteBatch* batch = nullptr;
 
-	Model mBox, mBRot, mBScale, mBScroll, mBCross, mQuad, mBWin, mBall;
+	DirectX::SpriteFont *mPauseLabel = nullptr;
+
+	Sprite test;
 };

@@ -4,6 +4,8 @@
 class State
 {
 public:
+	virtual ~State() = default;
+
 	/*
 	 Initialises the state.
 	 */

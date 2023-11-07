@@ -105,6 +105,10 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="PauseState.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="ShaderTypes.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="State.h" />
@@ -122,6 +126,10 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="PauseState.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="ShaderTypes.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Sprite.h" />

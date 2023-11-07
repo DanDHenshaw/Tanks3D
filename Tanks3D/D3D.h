@@ -7,10 +7,10 @@
 #include "FX.h"
 #include "Mesh.h"
 
-class MyD3D
+class D3D
 {
 public:
-	MyD3D() : mFX(*this) {};
+	D3D() : mFX(*this) {};
 	//main start up function
 	bool InitDirect3D();
 	//default minimum behaviour when ALT+ENTER or drag or resize
@@ -36,13 +36,13 @@ public:
 		return mpd3dDevice!=nullptr;
 	}
 	//see mpOnResize
-	void OnResize(int sw, int sh, MyD3D& d3d) {
+	void OnResize(int sw, int sh, D3D& d3d) {
 		if (mpOnResize)
 			mpOnResize(sw, sh, d3d);
 		else
 			OnResize_Default(sw, sh);
 	}
-	void SetOnResize(void(*pOnResize)(int, int, MyD3D&)) {
+	void SetOnResize(void(*pOnResize)(int, int, D3D&)) {
 		mpOnResize = pOnResize;
 	}
 	TexCache& GetCache() { return mTexCache; }
@@ -83,7 +83,7 @@ private:
 	D3D11_VIEWPORT mScreenViewport;
 	//a function to call when we ALT+ENTER or drag the window
 	//two parameters are width/height of the new window and this
-	void(*mpOnResize)(int, int, MyD3D&) = nullptr;
+	void(*mpOnResize)(int, int, D3D&) = nullptr;
 
 	ID3D11SamplerState* mpWrapSampler = nullptr;
 

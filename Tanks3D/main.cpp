@@ -2,6 +2,9 @@
 #include "D3D.h"
 #include "Game.h"
 
+int w(1024), h(768);
+std::string name = "Tanks3D";
+
 LRESULT CALLBACK MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	//do something game specific here
@@ -19,12 +22,10 @@ LRESULT CALLBACK MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 	PSTR cmdLine, int showCmd)
 {
-
-	int w(1024), h(768);
-	if (!WinUtil::Get().InitMainWindow(w, h, hInstance, "Fezzy", MainWndProc, true))
+	if (!WinUtil::Get().InitMainWindow(w, h, hInstance, name, MainWndProc, true))
 		assert(false);
 
-	MyD3D d3d;
+	D3D d3d;
 	if (!d3d.InitDirect3D())
 		assert(false);
 	WinUtil::Get().SetD3D(d3d);

@@ -1,6 +1,9 @@
 #include "GameState.h"
 
+#include <iostream>
+
 #include "GeometryBuilder.h"
+#include "PauseState.h"
 #include "WindowUtils.h"
 
 using namespace DirectX;
@@ -13,7 +16,7 @@ GameState::GameState(GameDataRef data)
 
 void GameState::Initialise()
 {
-	MyD3D& d3d = WinUtil::Get().GetD3D();
+	D3D& d3d = WinUtil::Get().GetD3D();
 
 	mQuad.Initialise(BuildQuad(d3d.GetMeshMgr()));
 	mBCross.Initialise(BuildCube(d3d.GetMeshMgr()));
@@ -100,8 +103,7 @@ void GameState::Update(float dTime)
 
 void GameState::Render(float dTime)
 {
-	MyD3D& d3d = WinUtil::Get().GetD3D();
-	d3d.BeginRender(Colours::Black);
+	D3D& d3d = WinUtil::Get().GetD3D();
 
 	float alpha = 0.5f + sinf(gAngle * 2) * 0.5f;
 
@@ -172,8 +174,6 @@ void GameState::Render(float dTime)
 	d3d.GetFX().Render(mBWin);
 
 	d3d.GetFX().Render(mBall);
-
-	d3d.EndRender();
 }
 
 LRESULT GameState::WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -187,6 +187,9 @@ LRESULT GameState::WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM
 		switch (wParam)
 		{
 		case 27:
+			// Escape Pressed
+			_data->machine.AddState(StateRef(std::make_unique<PauseState>(_data)), false);
+			return 0;
 		case 'q':
 		case 'Q':
 			PostQuitMessage(0);
@@ -214,6 +217,7 @@ LRESULT GameState::WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM
 			break;
 		}
 	}
+
 	//default message handling (resize window, full screen, etc)
 	return WinUtil::Get().DefaultMssgHandler(hwnd, msg, wParam, lParam);
 }
@@ -221,14 +225,4 @@ LRESULT GameState::WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM
 void GameState::Release()
 {
 	State::Release();
-}
-
-void GameState::Pause()
-{
-	State::Pause();
-}
-
-void GameState::Resume()
-{
-	State::Resume();
 }

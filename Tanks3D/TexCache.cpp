@@ -51,6 +51,39 @@ ID3D11ShaderResourceView* TexCache::LoadTexture(ID3D11Device*pDevice, const std:
 	return pT;
 }
 
+SpriteFont* TexCache::LoadFont(ID3D11Device* pDevice, const std::string& fileName, const std::string& texName,
+	bool appendPath)
+{
+	std::string name = texName;;
+	if (name.empty())
+	{
+		std::filesystem::path p(fileName);
+		name = p.stem().string();
+	}
+
+	//search the cache
+	MyMap::iterator it = mCache.find(name);
+	if (it != mCache.end())
+		return (*it).second.pFont;
+
+	//prepare the path for loading
+	const std::string* pPath = &fileName;
+	std::string path;
+	if (appendPath)
+	{
+		path = mAssetPath + fileName;
+		pPath = &path;
+	}
+	std::wstring ws(pPath->begin(), pPath->end());
+	//load it
+	DirectX::DDS_ALPHA_MODE alpha;
+	SpriteFont* pT = new SpriteFont(pDevice, ws.c_str());
+	//save it
+	assert(pT);
+	mCache.insert(MyMap::value_type(name, Data(fileName, pT)));
+	return pT;
+}
+
 //slowly find a texture by handle
 
 const TexCache::Data & TexCache::Get(ID3D11ShaderResourceView * pTex) {
@@ -87,5 +120,3 @@ DirectX::SimpleMath::Vector2 TexCache::GetDimensions(ID3D11ShaderResourceView* p
 	ReleaseCOM(res);
 	return dim;
 }
-
-

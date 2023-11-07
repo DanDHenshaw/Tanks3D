@@ -5,6 +5,7 @@
 #include <d3d11.h>
 
 #include "D3DUtil.h"
+#include "SpriteFont.h"
 
 //handy rectangle definer
 struct RECTF
@@ -31,13 +32,18 @@ public:
 		}
 		Data(const std::string& fName, ID3D11ShaderResourceView*p, const DirectX::SimpleMath::Vector2& _dim, const std::vector<RECTF> *_frames)
 			:fileName(fName), pTex(p), dim(_dim)
-
 		{
 			if (_frames)
 				frames = *_frames;
 		}
+		Data(const std::string& fName, DirectX::SpriteFont* p)
+			:fileName(fName), pFont(p)
+		{
+			frames.clear();
+		}
 		std::string fileName;
 		ID3D11ShaderResourceView* pTex = nullptr;
+		DirectX::SpriteFont* pFont = nullptr;
 		DirectX::SimpleMath::Vector2 dim;
 		std::vector<RECTF> frames;
 	};
@@ -46,6 +52,7 @@ public:
 	void Release();
 	//if this texture is new load it in, otherwise find it and return a handle
 	ID3D11ShaderResourceView* LoadTexture(ID3D11Device*pDevice, const std::string& fileName, const std::string& texName="", bool appendPath=true, const std::vector<RECTF> *_frames = nullptr);
+	DirectX::SpriteFont* LoadFont(ID3D11Device* pDevice, const std::string& fileName, const std::string& texName = "", bool appendPath = true);
 	//usually we just have a texture file name, but they're all in a sub folder
 	void SetAssetPath(const std::string& path) {
 		mAssetPath = path;

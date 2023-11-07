@@ -8,7 +8,7 @@ using namespace SimpleMath;
 
 void Model::Initialise(const std::string& meshFileName)
 {
-	MyD3D& d3d = WinUtil::Get().GetD3D();
+	D3D& d3d = WinUtil::Get().GetD3D();
 	
 }
 

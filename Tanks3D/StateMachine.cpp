@@ -17,7 +17,9 @@ void StateMachine::ProcessStateChanges()
 {
 	if (_isRemoving && !_states.empty())
 	{
+		StateRef oldState = (StateRef)_states.top().get();
 		_states.pop();
+		oldState.release();
 
 		if (!_states.empty())
 		{
@@ -31,13 +33,13 @@ void StateMachine::ProcessStateChanges()
 	{
 		if (!_states.empty())
 		{
-			if (this->_isReplacing)
+			if (_isReplacing)
 			{
-				this->_states.pop();
+				_states.pop();
 			}
 			else
 			{
-				this->_states.top()->Pause();
+				_states.top()->Pause();
 			}
 		}
 

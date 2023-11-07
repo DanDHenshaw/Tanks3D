@@ -7,7 +7,7 @@
 #include "D3DUtil.h"
 #include "ShaderTypes.h"
 
-class MyD3D;
+class D3D;
 class Model;
 
 namespace FX
@@ -46,7 +46,7 @@ namespace FX
 	class MyFX
 	{
 	public:
-		MyFX(MyD3D& d3d)
+		MyFX(D3D& d3d)
 			:mD3D(d3d) { }
 		~MyFX() {
 			Release();
@@ -105,7 +105,7 @@ namespace FX
 
 	private:
 
-		MyD3D& mD3D;
+		D3D& mD3D;
 		DirectX::SimpleMath::Matrix mView, mProj;	//view and projection matrices
 		GfxParamsPerObj mGfxPerObj;					//world matrices for transformation
 		GfxParamsPerFrame mGfxPerFrame;				//lights and camera position

@@ -44,7 +44,7 @@ class Sprite
 {
 private:
 	ID3D11ShaderResourceView *mpTex;
-	MyD3D& mD3D;
+	D3D& mD3D;
 	RECTF mTexRect;
 	DirectX::SimpleMath::Vector2 scale;
 	const TexCache::Data *mpTexData;
@@ -58,7 +58,7 @@ public:
 	float rotation;
 	DirectX::SimpleMath::Vector2 origin;
 
-	Sprite(MyD3D& d3d)
+	Sprite(D3D& d3d)
 		:mPos(0, 0), mVel(0, 0),
 		depth(0), mTexRect{ 0,0,0,0 }, colour(1, 1, 1, 1),
 		rotation(0), scale(1, 1), origin(0, 0), mpTex(nullptr),

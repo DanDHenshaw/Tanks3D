@@ -39,6 +39,12 @@
     <Filter Include="Source Files\Game\State">
       <UniqueIdentifier>{3a5394dd-0ce0-4b51-ba31-9dbcc0567f22}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Game\State\GameState">
+      <UniqueIdentifier>{97e2f3d3-b0fb-41f0-8558-cfa68e26045a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\State\Pause">
+      <UniqueIdentifier>{841b3ce4-ac3c-4c55-b6ac-6f7fecfa0c1c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowUtils.cpp">
@@ -87,7 +93,10 @@
       <Filter>Source Files\Core\Managers\StateMachine</Filter>
     </ClCompile>
     <ClCompile Include="GameState.cpp">
-      <Filter>Source Files\Game\State</Filter>
+      <Filter>Source Files\Game\State\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseState.cpp">
+      <Filter>Source Files\Game\State\Pause</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -134,7 +143,10 @@
       <Filter>Source Files\Core\Managers\StateMachine</Filter>
     </ClInclude>
     <ClInclude Include="GameState.h">
-      <Filter>Source Files\Game\State</Filter>
+      <Filter>Source Files\Game\State\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseState.h">
+      <Filter>Source Files\Game\State\Pause</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

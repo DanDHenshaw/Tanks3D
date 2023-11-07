@@ -8,25 +8,25 @@
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
-float MyD3D::GetAspectRatio()
+float D3D::GetAspectRatio()
 {
 	int w,h;
 	WinUtil::Get().GetClientExtents(w, h);
 	return w / (float)h;
 }
 
-void MyD3D::BeginRender(const Vector4 & colour)
+void D3D::BeginRender(const Vector4 & colour)
 {
 	mpd3dImmediateContext->ClearRenderTargetView(mpRenderTargetView, reinterpret_cast<const float*>(&colour));
 	mpd3dImmediateContext->ClearDepthStencilView(mpDepthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 }
 
-void MyD3D::EndRender()
+void D3D::EndRender()
 {
 	HR(mpSwapChain->Present(0, 0));
 }
 
-void MyD3D::InitInputAssembler(ID3D11InputLayout* pInputLayout, ID3D11Buffer* pVBuffer, UINT szVertex, ID3D11Buffer* pIBuffer, D3D_PRIMITIVE_TOPOLOGY topology)
+void D3D::InitInputAssembler(ID3D11InputLayout* pInputLayout, ID3D11Buffer* pVBuffer, UINT szVertex, ID3D11Buffer* pIBuffer, D3D_PRIMITIVE_TOPOLOGY topology)
 {
 	UINT offset = 0;
 	assert(mpd3dImmediateContext);
@@ -38,7 +38,7 @@ void MyD3D::InitInputAssembler(ID3D11InputLayout* pInputLayout, ID3D11Buffer* pV
 
 
 // Resize the swap chain and recreate the render target view.
-void MyD3D::ResizeSwapChain(int screenWidth, int screenHeight)
+void D3D::ResizeSwapChain(int screenWidth, int screenHeight)
 {
 	HR(mpSwapChain->ResizeBuffers(1, screenWidth, screenHeight, DXGI_FORMAT_R8G8B8A8_UNORM, 0));
 	ID3D11Texture2D* backBuffer;
@@ -48,7 +48,7 @@ void MyD3D::ResizeSwapChain(int screenWidth, int screenHeight)
 }
 
 // Create the depth/stencil buffer description
-void MyD3D::CreateDepthStencilDescription(D3D11_TEXTURE2D_DESC& dsd, int screenWidth, int screenHeight, bool msaa4X, int maxQuality)
+void D3D::CreateDepthStencilDescription(D3D11_TEXTURE2D_DESC& dsd, int screenWidth, int screenHeight, bool msaa4X, int maxQuality)
 {
 	dsd.Width = screenWidth;
 	dsd.Height = screenHeight;
@@ -76,20 +76,20 @@ void MyD3D::CreateDepthStencilDescription(D3D11_TEXTURE2D_DESC& dsd, int screenW
 }
 
 
-void MyD3D::CreateDepthStencilBufferAndView(D3D11_TEXTURE2D_DESC& dsd)
+void D3D::CreateDepthStencilBufferAndView(D3D11_TEXTURE2D_DESC& dsd)
 {
 	HR(mpd3dDevice->CreateTexture2D(&dsd, 0, &mpDepthStencilBuffer));
 	HR(mpd3dDevice->CreateDepthStencilView(mpDepthStencilBuffer, 0, &mpDepthStencilView));
 }
 
 
-void MyD3D::BindRenderTargetViewAndDepthStencilView()
+void D3D::BindRenderTargetViewAndDepthStencilView()
 {
 	mpd3dImmediateContext->OMSetRenderTargets(1, &mpRenderTargetView, mpDepthStencilView);
 }
 
 // Set the viewport transform.
-void MyD3D::SetViewportDimensions(int screenWidth, int screenHeight)
+void D3D::SetViewportDimensions(int screenWidth, int screenHeight)
 {
 	mScreenViewport.TopLeftX = 0;
 	mScreenViewport.TopLeftY = 0;
@@ -103,7 +103,7 @@ void MyD3D::SetViewportDimensions(int screenWidth, int screenHeight)
 
 
 //start your engines!
-void MyD3D::CreateD3D( D3D_FEATURE_LEVEL desiredFeatureLevel)
+void D3D::CreateD3D( D3D_FEATURE_LEVEL desiredFeatureLevel)
 {
 	UINT createDeviceFlags = 0;
 #if defined(DEBUG) || defined(_DEBUG)  
@@ -156,7 +156,7 @@ void MyD3D::CreateD3D( D3D_FEATURE_LEVEL desiredFeatureLevel)
 }
 
 
-void MyD3D::CheckMultiSamplingSupport(UINT& quality4xMsaa)
+void D3D::CheckMultiSamplingSupport(UINT& quality4xMsaa)
 {
 	// Check 4X MSAA quality support for our back buffer format.
 	// All Direct3D 11 capable devices support 4X MSAA for all render 
@@ -170,7 +170,7 @@ void MyD3D::CheckMultiSamplingSupport(UINT& quality4xMsaa)
 }
 
 //we need appropriately sized buffers to render into
-void MyD3D::CreateSwapChainDescription(DXGI_SWAP_CHAIN_DESC& sd, HWND hMainWnd, bool windowed, int screenWidth, int screenHeight)
+void D3D::CreateSwapChainDescription(DXGI_SWAP_CHAIN_DESC& sd, HWND hMainWnd, bool windowed, int screenWidth, int screenHeight)
 {
 	// Fill out a DXGI_SWAP_CHAIN_DESC to describe our swap chain.
 	sd.BufferDesc.Width = screenWidth;
@@ -204,7 +204,7 @@ void MyD3D::CreateSwapChainDescription(DXGI_SWAP_CHAIN_DESC& sd, HWND hMainWnd, 
 	mWindowed = windowed;
 }
 
-void MyD3D::CreateSwapChain(DXGI_SWAP_CHAIN_DESC& sd)
+void D3D::CreateSwapChain(DXGI_SWAP_CHAIN_DESC& sd)
 {
 	// To correctly create the swap chain, we must use the IDXGIFactory that was
 	// used to create the device.  If we tried to use a different IDXGIFactory instance
@@ -229,7 +229,7 @@ void MyD3D::CreateSwapChain(DXGI_SWAP_CHAIN_DESC& sd)
 }
 
 
-void MyD3D::OnResize_Default(int clientWidth, int clientHeight)
+void D3D::OnResize_Default(int clientWidth, int clientHeight)
 {
 	assert(mpd3dImmediateContext);
 	assert(mpd3dDevice);
@@ -256,7 +256,7 @@ void MyD3D::OnResize_Default(int clientWidth, int clientHeight)
 }
 
 
-bool MyD3D::InitDirect3D()
+bool D3D::InitDirect3D()
 {
 
 	// Create the device and device context.
@@ -284,7 +284,7 @@ bool MyD3D::InitDirect3D()
 	return true;
 }
 
-void MyD3D::ReleaseD3D(bool extraReporting)
+void D3D::ReleaseD3D(bool extraReporting)
 {
 	mTexCache.Release();
 	mFX.Release();
@@ -322,7 +322,7 @@ void MyD3D::ReleaseD3D(bool extraReporting)
 	ReleaseCOM(mpd3dDevice);
 }
 
-void MyD3D::CreateWrapSampler(ID3D11SamplerState* &pSampler)
+void D3D::CreateWrapSampler(ID3D11SamplerState* &pSampler)
 {
 	D3D11_SAMPLER_DESC sampDesc;
 	ZeroMemory(&sampDesc, sizeof(sampDesc));

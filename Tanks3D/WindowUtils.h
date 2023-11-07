@@ -7,7 +7,7 @@
 #include <sstream>
 #include <assert.h>
 
-class MyD3D;
+class D3D;
 
 class WinUtil
 {
@@ -24,11 +24,11 @@ public:
 		return Get().RealDefaultMssgHandler(hwnd, msg, wParam, lParam);
 	}
 	bool InitMainWindow(int width, int height, HINSTANCE hInstance, const std::string& appName, WNDPROC mssgHandler, bool centred=true);
-	void SetD3D(MyD3D& d3d) {
+	void SetD3D(D3D& d3d) {
 		assert(mpMyD3D == nullptr);
 		mpMyD3D = &d3d;
 	}
-	MyD3D& GetD3D() {
+	D3D& GetD3D() {
 		assert(mpMyD3D);
 		return *mpMyD3D;
 	}
@@ -68,7 +68,7 @@ private:
 		int clientHeight;
 	};
 	WinData mWinData;
-	MyD3D *mpMyD3D;
+	D3D *mpMyD3D;
 	
 	WinUtil() 
 		:mpMyD3D(nullptr) 
