@@ -3,6 +3,8 @@
 #include "State.h"
 #include "Game.h"
 
+#include <fstream>
+
 // Inherits the State class from 'State.h'
 class GameState : public State
 {

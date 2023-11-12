@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "WindowUtils.h"
 #include "D3D.h"
 #include "Game.h"
@@ -18,6 +20,19 @@ LRESULT CALLBACK MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	return WinUtil::DefaultMssgHandler(hwnd, msg, wParam, lParam);
 }
 
+void renderer(Game* game, float* dTime)
+{
+	bool canRender;
+
+	while (WinUtil::Get().BeginLoop(canRender))
+	{
+		if (canRender && *dTime > 0)
+		{
+			game->Render(*dTime);
+		}
+	}
+}
+
 //main entry point for the game
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 	PSTR cmdLine, int showCmd)
@@ -34,18 +49,23 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 	Game game;
 	game.Initialise();
 
-	bool canUpdateRender;
+	bool canUpdate;
 	float dTime = 0;
-	while (WinUtil::Get().BeginLoop(canUpdateRender))
+
+	bool canRender = false;
+
+	while (WinUtil::Get().BeginLoop(canUpdate))
 	{
-		if (canUpdateRender && dTime > 0)
+		if (canUpdate && dTime > 0)
 		{
 			game.Update(dTime);
 			game.Render(dTime);
 		}
-		dTime = WinUtil::Get().EndLoop(canUpdateRender);
+		dTime = WinUtil::Get().EndLoop(canUpdate);
 	}
+
 	game.Release();
 	d3d.ReleaseD3D(true);
+
 	return 0;
 }

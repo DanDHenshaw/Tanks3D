@@ -2,6 +2,8 @@
 
 void StateMachine::AddState(StateRef newState, bool isReplacing)
 {
+	if (_isClosing) return;
+
 	_isAdding = true;
 	_isReplacing = isReplacing;
 
@@ -15,6 +17,8 @@ void StateMachine::RemoveState()
 
 void StateMachine::ProcessStateChanges()
 {
+	if (_isClosing) return;
+
 	if (_isRemoving && !_states.empty())
 	{
 		StateRef oldState = (StateRef)_states.top().get();
@@ -51,5 +55,17 @@ void StateMachine::ProcessStateChanges()
 
 StateRef& StateMachine::GetActiveState()
 {
-	return _states.top();
+	if (!_isClosing)
+		return _states.top();
+}
+
+void StateMachine::CloseStack()
+{
+	_isClosing = true;
+
+	for (int i = 0; i < _states.size(); ++i)
+	{
+		_states.top()->Release();
+		_states.pop();
+	}
 }

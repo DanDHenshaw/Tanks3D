@@ -10,6 +10,10 @@ class PauseState : public State
 {
 public:
 	PauseState(GameDataRef data);
+	~PauseState()
+	{
+		return;
+	}
 
 	void Initialise() override;
 	void Update(float dTime) override;

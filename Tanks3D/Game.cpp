@@ -9,13 +9,12 @@ using namespace DirectX::SimpleMath;
 
 void Game::Initialise()
 {
-	_data->machine.AddState(StateRef(new GameState(_data)));
+	_data->machine.AddState(StateRef(std::make_unique<GameState>(_data)));
 }
 
 void Game::Release()
 {
-	_data->machine.GetActiveState()->Release();
-	_data->machine.RemoveState();
+	_data->machine.CloseStack();
 }
 
 void Game::Update(float dTime)

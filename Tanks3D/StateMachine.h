@@ -34,6 +34,8 @@ public:
 	 */
 	StateRef& GetActiveState();
 
+	void CloseStack();
+
 private:
 	// Reference to the states on the stack.
 	std::stack<StateRef> _states;
@@ -42,6 +44,7 @@ private:
 
 	// If the program is removing the current state.
 	bool _isRemoving;
+	bool _isClosing = false;
 	// If the program is adding a new state.
 	bool _isAdding;
 	// If the program is replacing the current state with a new state.
