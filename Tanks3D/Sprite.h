@@ -55,13 +55,12 @@ public:
 	DirectX::SimpleMath::Vector2 mVel;
 	float depth;
 	DirectX::SimpleMath::Vector4 colour;
-	float alpha = 1;
 	float rotation;
 	DirectX::SimpleMath::Vector2 origin;
 
 	Sprite(D3D& d3d)
 		:mPos(0, 0), mVel(0, 0),
-		depth(0), mTexRect{ 0,0,0,0 }, colour(1, 1, 1, alpha),
+		depth(0), mTexRect{ 0,0,0,0 }, colour(1, 1, 1, 1),
 		rotation(0), scale(1, 1), origin(0, 0), mpTex(nullptr),
 		mD3D(d3d), mAnim(*this)
 	{}

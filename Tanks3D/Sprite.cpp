@@ -1,5 +1,3 @@
-#include "CommonStates.h"
-
 #include "Sprite.h"
 
 using namespace DirectX;
@@ -80,6 +78,7 @@ void Sprite::SetTex(ID3D11ShaderResourceView& tex, const RECTF& texRect)
 		SetTexRect(RECTF{ 0,0,mpTexData->dim.x,mpTexData->dim.y });
 	}
 }
+
 void Sprite::SetTexRect(const RECTF& texRect) {
 	mTexRect = texRect;
 }
@@ -98,10 +97,9 @@ void Sprite::SetFrame(int id)
 
 bool Sprite::FadeIn(float dTime, float fadeSpeed)
 {
-	if (alpha < 1)
+	if (colour.w <= 1)
 	{
-		alpha += dTime * fadeSpeed;
-		colour = DirectX::SimpleMath::Vector4(1, 1, 1, alpha);
+		colour.w += dTime * fadeSpeed;
 
 		return false;
 	}
@@ -110,10 +108,9 @@ bool Sprite::FadeIn(float dTime, float fadeSpeed)
 }
 bool Sprite::FadeOut(float dTime, float fadeSpeed)
 {
-	if (alpha > 0)
+	if (colour.w >= 0)
 	{
-		alpha -= dTime * fadeSpeed;
-		colour = DirectX::SimpleMath::Vector4(1, 1, 1, alpha);
+		colour.w -= dTime * fadeSpeed;
 
 		return false;
 	}

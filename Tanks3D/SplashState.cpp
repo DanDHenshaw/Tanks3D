@@ -21,6 +21,7 @@ void SplashState::Initialise()
 	mBatch = new SpriteBatch(&d3d.GetDeviceCtx());
 
 	mLogo.SetTex(*d3d.GetCache().LoadTexture(&d3d.GetDevice(), "splash/logo.dds"));
+	mLogo.colour.w = 0;
 	mLogo.SetScale(Vector2(1, 1));
 
 	mLogo.origin = Vector2(512 / 2, 512 / 2);
@@ -29,7 +30,7 @@ void SplashState::Initialise()
 	WinUtil::Get().GetClientExtents(w, h);
 	mLogo.mPos = Vector2(w / 2, h / 2);
 
-	mLogoColor = Vector4(1, 1, 1, 0);
+	mLogo.rotation = 0;
 }
 
 void SplashState::Update(float dTime)
