@@ -6,10 +6,10 @@
 #include "State.h"
 
 // Inherits the State class from 'State.h'
-class PauseState : public State
+class MenuState : public State
 {
 public:
-	PauseState(GameDataRef data);
+	MenuState(GameDataRef data);
 
 	void Initialise() override;
 	void Update(float dTime) override;
@@ -20,10 +20,4 @@ public:
 private:
 	// Reference to GameData.
 	GameDataRef _data;
-
-	DirectX::SpriteBatch* mBatch = nullptr;
-
-	DirectX::SpriteFont *mPauseLabel = nullptr;
-
-	Sprite mTest;
 };

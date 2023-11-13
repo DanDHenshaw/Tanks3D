@@ -42,8 +42,14 @@
     <Filter Include="Source Files\Game\State\GameState">
       <UniqueIdentifier>{97e2f3d3-b0fb-41f0-8558-cfa68e26045a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Game\State\Pause">
+    <Filter Include="Source Files\Game\State\SplashState">
+      <UniqueIdentifier>{543a3fc3-bdd0-4ffe-be7b-033e670afe79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\State\PauseState">
       <UniqueIdentifier>{841b3ce4-ac3c-4c55-b6ac-6f7fecfa0c1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\State\MenuState">
+      <UniqueIdentifier>{641d1890-fa13-4b1c-a40e-b2370cd6f716}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -96,7 +102,16 @@
       <Filter>Source Files\Game\State\GameState</Filter>
     </ClCompile>
     <ClCompile Include="PauseState.cpp">
-      <Filter>Source Files\Game\State\Pause</Filter>
+      <Filter>Source Files\Game\State\PauseState</Filter>
+    </ClCompile>
+    <ClCompile Include="SplashState.cpp">
+      <Filter>Source Files\Game\State\SplashState</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuState.cpp">
+      <Filter>Source Files\Game\State\MenuState</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -146,7 +161,16 @@
       <Filter>Source Files\Game\State\GameState</Filter>
     </ClInclude>
     <ClInclude Include="PauseState.h">
-      <Filter>Source Files\Game\State\Pause</Filter>
+      <Filter>Source Files\Game\State\PauseState</Filter>
+    </ClInclude>
+    <ClInclude Include="SplashState.h">
+      <Filter>Source Files\Game\State\SplashState</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuState.h">
+      <Filter>Source Files\Game\State\MenuState</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Source Files\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

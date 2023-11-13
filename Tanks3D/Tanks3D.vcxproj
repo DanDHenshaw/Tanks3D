@@ -103,6 +103,7 @@
     <ClCompile Include="GeometryBuilder.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="PauseState.cpp">
@@ -110,11 +111,13 @@
       </ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="ShaderTypes.cpp" />
+    <ClCompile Include="SplashState.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="State.h" />
     <ClCompile Include="StateMachine.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="TexCache.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="WindowUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +127,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GeometryBuilder.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="MenuState.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="PauseState.h">
@@ -132,10 +136,12 @@
     </ClInclude>
     <ClInclude Include="ShaderTypes.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="SplashState.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="TexCache.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="WindowUtils.h" />
   </ItemGroup>
   <ItemGroup>

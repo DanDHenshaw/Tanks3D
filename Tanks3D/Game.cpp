@@ -2,14 +2,14 @@
 #include "D3D.h"
 #include "Game.h"
 
-#include "GameState.h"
+#include "SplashState.h"
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
 void Game::Initialise()
 {
-	_data->machine.AddState(StateRef(std::make_unique<GameState>(_data)));
+	_data->machine.AddState(StateRef(std::make_unique<SplashState>(_data)));
 }
 
 void Game::Release()

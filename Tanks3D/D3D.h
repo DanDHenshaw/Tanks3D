@@ -76,7 +76,7 @@ private:
 	IDXGISwapChain* mpSwapChain = nullptr;
 	//when we render things, where do the go?
 	ID3D11RenderTargetView* mpRenderTargetView = nullptr;
-	//when rendering we can test the depth of pixels, usually so we
+	//when rendering we can mLogo the depth of pixels, usually so we
 	//avoid rendering anything that is behind something else
 	ID3D11DepthStencilView* mpDepthStencilView = nullptr;
 	//position, height, width, min+max depth of the view we are rendering

@@ -55,12 +55,13 @@ public:
 	DirectX::SimpleMath::Vector2 mVel;
 	float depth;
 	DirectX::SimpleMath::Vector4 colour;
+	float alpha = 1;
 	float rotation;
 	DirectX::SimpleMath::Vector2 origin;
 
 	Sprite(D3D& d3d)
 		:mPos(0, 0), mVel(0, 0),
-		depth(0), mTexRect{ 0,0,0,0 }, colour(1, 1, 1, 1),
+		depth(0), mTexRect{ 0,0,0,0 }, colour(1, 1, 1, alpha),
 		rotation(0), scale(1, 1), origin(0, 0), mpTex(nullptr),
 		mD3D(d3d), mAnim(*this)
 	{}
@@ -71,7 +72,7 @@ public:
 	}
 	Sprite& operator=(const Sprite& rhs);
 	
-	//sprite is drawn using batch parameter
+	//sprite is drawn using mBatch parameter
 	void Draw(DirectX::SpriteBatch& batch);
 	//change texture, optional rectf can isolate part of the texture
 	void SetTex(ID3D11ShaderResourceView& tex, const RECTF& texRect = RECTF{ 0,0,0,0 });
@@ -104,6 +105,10 @@ public:
 		assert(mpTexData);
 		return scale * mpTexData->dim;
 	}
+
+public:
+	bool FadeIn(float dTime, float fadeSpeed = 1);
+	bool FadeOut(float dTime, float fadeSpeed = 1);
 };
 
 

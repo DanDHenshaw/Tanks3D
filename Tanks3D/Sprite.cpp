@@ -96,3 +96,27 @@ void Sprite::SetFrame(int id)
 	SetTexRect(data.frames.at(id));
 }
 
+bool Sprite::FadeIn(float dTime, float fadeSpeed)
+{
+	if (alpha < 1)
+	{
+		alpha += dTime * fadeSpeed;
+		colour = DirectX::SimpleMath::Vector4(1, 1, 1, alpha);
+
+		return false;
+	}
+
+	return true;
+}
+bool Sprite::FadeOut(float dTime, float fadeSpeed)
+{
+	if (alpha > 0)
+	{
+		alpha -= dTime * fadeSpeed;
+		colour = DirectX::SimpleMath::Vector4(1, 1, 1, alpha);
+
+		return false;
+	}
+
+	return true;
+}
