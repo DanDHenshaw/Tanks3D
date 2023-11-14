@@ -6,6 +6,7 @@
 #include <future>
 
 #include "GameObject.h"
+#include "Input.h"
 
 // Inherits the State class from 'State.h'
 class GameState : public State
@@ -23,6 +24,8 @@ public:
 	enum Modelid { FLOOR, BACK_WALL, LEFT_WALL, BOX, CROSS, CROSS2, WINDOW, WINDOW2, ROCK, DRAGON, SUCK, SCIENTIST, TOTAL = 12 };
 
 private:
+	MouseAndKeys input;
+
 	// Reference to GameData.
 	GameDataRef _data;
 
