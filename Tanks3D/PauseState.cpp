@@ -19,10 +19,10 @@ void PauseState::Initialise()
 
 	mBatch = new SpriteBatch(&d3d.GetDeviceCtx());
 
-	mPauseLabel = d3d.GetCache().LoadFont(&d3d.GetDevice(), "fonts/comicSansMS.spritefont");
+	mPauseLabel = d3d.GetCache().LoadFont(&d3d.GetDevice(), "fonts/algerian.spritefont");
 
 	mTest.SetTex(*d3d.GetCache().LoadTexture(&d3d.GetDevice(), "tiles.dds"));
-	mTest.SetScale(Vector2(1, 1));
+	mTest.GetScale() = Vector2(1, 1);
 	mTest.mPos = Vector2(0, 0);
 }
 
