@@ -113,6 +113,9 @@
     <ClCompile Include="Timer.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Source Files\Core\Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowUtils.h">
@@ -171,6 +174,9 @@
     </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>Source Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Source Files\Core\Rendering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

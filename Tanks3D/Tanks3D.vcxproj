@@ -100,6 +100,7 @@
     <ClCompile Include="D3DUtil.cpp" />
     <ClCompile Include="FX.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GeometryBuilder.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
@@ -125,6 +126,7 @@
     <ClInclude Include="D3DUtil.h" />
     <ClInclude Include="FX.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="GeometryBuilder.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="MenuState.h" />

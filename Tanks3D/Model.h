@@ -3,7 +3,7 @@
 
 #include <string>
 #include <cassert>
-#include "d3d.h"
+#include "D3D.h"
 
 class Mesh;
 
