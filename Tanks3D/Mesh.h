@@ -6,6 +6,11 @@
 
 #include "ShaderTypes.h"
 
+//assimp
+struct aiScene;
+struct aiMesh;
+
+class D3D;
 
 /*
 Part of a vertex/index buffer that uses the same
@@ -14,10 +19,11 @@ material (colour and texture).
 class SubMesh
 {
 public:
-	~SubMesh() { 
+	~SubMesh() {
 		Release();
 	}
 	void Release();
+	bool Initialise(D3D& d3d, const aiScene* scene, const aiMesh* mesh);
 
 	//buffer data
 	ID3D11Buffer* mpVB = nullptr;
@@ -39,12 +45,13 @@ class Mesh
 {
 public:
 	Mesh(const std::string& name) : mName(name) {}
-	~Mesh() { 
-		Release(); 
+	~Mesh() {
+		Release();
 	}
 	void Release();
 	void CreateFrom(const VertexPosNormTex verts[], int numVerts, const unsigned int indices[],
 		int numIndices, const Material& mat, int meshStartIndex, int meshNumIndices);
+	void CreateFrom(const std::string& fileName, D3D& d3d);
 	int GetNumSubMeshes() const {
 		return (int)mSubMeshes.size();
 	}
@@ -52,9 +59,7 @@ public:
 		return *mSubMeshes.at(idx);
 	}
 
-	
 	std::string mName;
-
 
 private:
 	Mesh(const Mesh& m) = delete;
@@ -71,8 +76,8 @@ orientations, positions.
 class MeshMgr
 {
 public:
-	~MeshMgr() { 
-		Release(); 
+	~MeshMgr() {
+		Release();
 	}
 	void Release();
 	Mesh& GetMesh(const std::string& name);

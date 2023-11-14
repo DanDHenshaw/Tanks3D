@@ -7,6 +7,8 @@
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
+bool canUpdateRender;
+
 void Game::Initialise()
 {
 	_data->machine.AddState(StateRef(std::make_unique<SplashState>(_data)));
@@ -26,12 +28,7 @@ void Game::Update(float dTime)
 
 void Game::Render(float dTime)
 {
-	D3D& d3d = WinUtil::Get().GetD3D();
-	d3d.BeginRender(Colours::Black);
-
 	_data->machine.GetActiveState()->Render(dTime);
-
-	d3d.EndRender();
 }
 
 LRESULT Game::WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)

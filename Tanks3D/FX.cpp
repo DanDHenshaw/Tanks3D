@@ -12,12 +12,11 @@ using namespace DirectX::SimpleMath;
 
 namespace FX
 {
-
 	void MyFX::CreateConstantBuffers()
 	{
-		CreateConstantBuffer(mD3D.GetDevice(),sizeof(GfxParamsPerFrame), &mpGfxPerFrame);
-		CreateConstantBuffer(mD3D.GetDevice(),sizeof(GfxParamsPerObj), &mpGfxPerObj);
-		CreateConstantBuffer(mD3D.GetDevice(),sizeof(GfxParamsPerMesh), &mpGfxPerMesh);
+		CreateConstantBuffer(mD3D.GetDevice(), sizeof(GfxParamsPerFrame), &mpGfxPerFrame);
+		CreateConstantBuffer(mD3D.GetDevice(), sizeof(GfxParamsPerObj), &mpGfxPerObj);
+		CreateConstantBuffer(mD3D.GetDevice(), sizeof(GfxParamsPerMesh), &mpGfxPerMesh);
 	}
 
 	void MyFX::ReleaseConstantBuffers()
@@ -27,7 +26,7 @@ namespace FX
 		ReleaseCOM(mpGfxPerMesh);
 	}
 
-	void MyFX::SetPerObjConsts(ID3D11DeviceContext& d3dContext, Matrix& world)
+	void MyFX::SetPerObjConsts(ID3D11DeviceContext& d3dContext, DirectX::SimpleMath::Matrix& world)
 	{
 		mGfxPerObj.world = world;
 		mGfxPerObj.worldInvT = InverseTranspose(world);
@@ -43,7 +42,7 @@ namespace FX
 
 	}
 
-	void CreateRasterStates(ID3D11Device &device, ID3D11RasterizerState *pStates[RasterType::MAX_STATES])
+	void CreateRasterStates(ID3D11Device& device, ID3D11RasterizerState* pStates[RasterType::MAX_STATES])
 	{
 		D3D11_RASTERIZER_DESC desc;
 		ZeroMemory(&desc, sizeof(D3D11_RASTERIZER_DESC));
@@ -69,8 +68,7 @@ namespace FX
 		HR(device.CreateRasterizerState(&desc, &pStates[RasterType::NOCULL_FILLED]));
 	}
 
-
-	void CreateTransparentBlendState(ID3D11Device& d3dDevice, ID3D11BlendState* &pTransparent)
+	void CreateTransparentBlendState(ID3D11Device& d3dDevice, ID3D11BlendState*& pTransparent)
 	{
 		D3D11_BLEND_DESC blendDesc;
 		ZeroMemory(&blendDesc, sizeof(blendDesc));
@@ -97,8 +95,7 @@ namespace FX
 		HR(d3dDevice.CreateBlendState(&blendDesc, &pTransparent));
 	}
 
-
-	void CreateAlphaTransparentBlendState(ID3D11Device& d3dDevice, ID3D11BlendState* &pBlend)
+	void CreateAlphaTransparentBlendState(ID3D11Device& d3dDevice, ID3D11BlendState*& pBlend)
 	{
 		D3D11_BLEND_DESC blendDesc;
 		ZeroMemory(&blendDesc, sizeof(blendDesc));
@@ -123,8 +120,7 @@ namespace FX
 		HR(d3dDevice.CreateBlendState(&blendDesc, &pBlend));
 	}
 
-
-	void MyFX::SetupDirectionalLight(int lightIdx, bool enable, const Vector3 &direction,
+	void MyFX::SetupDirectionalLight(int lightIdx, bool enable, const Vector3& direction,
 		const Vector3& diffuse, const Vector3& ambient, const Vector3& specular)
 	{
 		assert(lightIdx >= 0 && lightIdx < 8);
@@ -167,11 +163,11 @@ namespace FX
 	}
 
 	void MyFX::SetupSpotLight(int lightIdx, bool enable,
-		const Vector3&position,
-		const Vector3&direction,
-		const Vector3& diffuse,
-		const Vector3& ambient,
-		const Vector3& specular,
+		const DirectX::SimpleMath::Vector3& position,
+		const DirectX::SimpleMath::Vector3& direction,
+		const DirectX::SimpleMath::Vector3& diffuse,
+		const DirectX::SimpleMath::Vector3& ambient,
+		const DirectX::SimpleMath::Vector3& specular,
 		float range, float atten1, float innerConeTheta, float outerConePhi)
 	{
 		assert(lightIdx >= 0 && lightIdx < 8);
@@ -215,7 +211,7 @@ namespace FX
 		}
 	}
 
-	void CreateConstantBuffer(ID3D11Device& d3dDevice, UINT sizeOfBuffer, ID3D11Buffer **pBuffer)
+	void CreateConstantBuffer(ID3D11Device& d3dDevice, UINT sizeOfBuffer, ID3D11Buffer** pBuffer)
 	{
 		// Create the constant buffers for the variables defined in the vertex shader.
 		D3D11_BUFFER_DESC constantBufferDesc;
@@ -270,7 +266,7 @@ namespace FX
 
 	}
 
-	void CreateVertexShader(ID3D11Device& d3dDevice, char* pBuff, unsigned int buffSz, ID3D11VertexShader* &pVS)
+	void CreateVertexShader(ID3D11Device& d3dDevice, char* pBuff, unsigned int buffSz, ID3D11VertexShader*& pVS)
 	{
 		assert(pBuff);
 		HR(d3dDevice.CreateVertexShader(pBuff,
@@ -280,7 +276,7 @@ namespace FX
 		assert(pVS);
 	}
 
-	void CreatePixelShader(ID3D11Device& d3dDevice, char* pBuff, unsigned int buffSz, ID3D11PixelShader* &pPS)
+	void CreatePixelShader(ID3D11Device& d3dDevice, char* pBuff, unsigned int buffSz, ID3D11PixelShader*& pPS)
 	{
 		assert(pBuff);
 		HR(d3dDevice.CreatePixelShader(pBuff,
@@ -290,7 +286,7 @@ namespace FX
 		assert(pPS);
 	}
 
-	void CreateSampler(ID3D11Device& d3dDevice, ID3D11SamplerState* &pSampler)
+	void CreateSampler(ID3D11Device& d3dDevice, ID3D11SamplerState*& pSampler)
 	{
 		D3D11_SAMPLER_DESC sampDesc;
 		ZeroMemory(&sampDesc, sizeof(sampDesc));
@@ -308,13 +304,13 @@ namespace FX
 	bool MyFX::Init()
 	{
 		CheckShaderModel5Supported(mD3D.GetDevice());
-		CreateSampler(mD3D.GetDevice(),mpSamAnisotropic);
+		CreateSampler(mD3D.GetDevice(), mpSamAnisotropic);
 		CreateRasterStates(mD3D.GetDevice(), mpRasterStates);
 
 		char* pBuff = nullptr;
 		unsigned int bytes = 0;
 		pBuff = ReadAndAllocate("../bin/data/TextureVS.cso", bytes);
-		CreateVertexShader(mD3D.GetDevice(),pBuff, bytes, mpVS);
+		CreateVertexShader(mD3D.GetDevice(), pBuff, bytes, mpVS);
 		CreateInputLayout(mD3D.GetDevice(), VertexPosNormTex::sVertexDesc, 3, pBuff, bytes, &mpInputLayout);
 		delete[] pBuff;
 
@@ -373,7 +369,7 @@ namespace FX
 			SubMesh& sm = mesh.GetSubMesh(i);
 
 			mD3D.InitInputAssembler(mpInputLayout, sm.mpVB, sizeof(VertexPosNormTex), sm.mpIB);
-			Material *pM;
+			Material* pM;
 			if (pOverrideMat)
 				pM = pOverrideMat;
 			else if (model.HasOverrideMat())
@@ -410,7 +406,7 @@ namespace FX
 
 		//select pixel shader to use
 		ID3D11PixelShader* p;
-		if ((mat.flags&Material::TFlags::LIT) != 0)
+		if ((mat.flags & Material::TFlags::LIT) != 0)
 		{
 			if (mat.pTextureRV)
 				p = mpPSLitTex;
@@ -433,29 +429,31 @@ namespace FX
 		dc.PSSetShader(p, nullptr, 0);
 
 		//how is it blended?
-		if ((mat.flags&Material::TFlags::TRANSPARENCY) != 0)
+		if ((mat.flags & Material::TFlags::TRANSPARENCY) != 0)
 			dc.OMSetBlendState(mpBlendTransparent, mat.blendFactors, 0xffffffff);
-		else if ((mat.flags&Material::TFlags::ALPHA_TRANSPARENCY) != 0)
+		else if ((mat.flags & Material::TFlags::ALPHA_TRANSPARENCY) != 0)
 		{
 			float b[] = { 1, 1, 1, 1 };
 			dc.OMSetBlendState(mpBlendAlphaTrans, b, 0xffffffff);
 		}
 
 		//should we cull?
-		if ((mat.flags&Material::TFlags::CULL) == 0)
-			if ((mat.flags&Material::TFlags::WIRE_FRAME) != 0)
+		if ((mat.flags & Material::TFlags::CULL) == 0)
+			if ((mat.flags & Material::TFlags::WIRE_FRAME) != 0)
 				dc.RSSetState(mpRasterStates[RasterType::NOCULL_WIRE]);
 			else
 				dc.RSSetState(mpRasterStates[RasterType::NOCULL_FILLED]);
-		else if ((mat.flags&Material::TFlags::CCW_WINDING) != 0)
-			if ((mat.flags&Material::TFlags::WIRE_FRAME) != 0)
+		else if ((mat.flags & Material::TFlags::CCW_WINDING) != 0)
+			if ((mat.flags & Material::TFlags::WIRE_FRAME) != 0)
 				dc.RSSetState(mpRasterStates[RasterType::CCW_WIRE]);
 			else
 				dc.RSSetState(mpRasterStates[RasterType::CCW_FILLED]);
 		else
-			if ((mat.flags&Material::TFlags::WIRE_FRAME) != 0)
+			if ((mat.flags & Material::TFlags::WIRE_FRAME) != 0)
 				dc.RSSetState(mpRasterStates[RasterType::CW_WIRE]);
 			else
 				dc.RSSetState(mpRasterStates[RasterType::CW_FILLED]);
+
+		dc.OMSetDepthStencilState(nullptr, 1);
 	}
 }

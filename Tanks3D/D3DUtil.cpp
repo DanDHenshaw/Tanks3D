@@ -70,3 +70,24 @@ Matrix InverseTranspose(const Matrix& m)
 	XMVECTOR det = XMMatrixDeterminant(A);
 	return XMMatrixTranspose(XMMatrixInverse(&det, A));
 }
+
+void StripPathAndExtension(std::string& fileName, std::string* pPath/*=nullptr*/, std::string* pExt/*=nullptr*/)
+{
+	if (pPath)
+		*pPath = "";
+	if (pExt)
+		*pExt = "";
+	//filename only
+	std::string::size_type n = fileName.find_last_of("\\/");
+	if (n != std::string::npos)
+	{
+		if (pPath)
+			pPath->append(fileName.c_str(), n + 1);
+		fileName.erase(0, n + 1);
+	}
+	n = fileName.find_last_of(".");
+	assert(n != std::string::npos);
+	if (pExt)
+		*pExt = fileName.substr(n);
+	fileName.erase(n, fileName.length());
+}

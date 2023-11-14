@@ -3,7 +3,7 @@
 #include "State.h"
 #include "Game.h"
 
-#include <fstream>
+#include <future>
 
 // Inherits the State class from 'State.h'
 class GameState : public State
@@ -17,11 +17,25 @@ public:
 	LRESULT WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) override;
 	void Release() override;
 
+	std::vector<Model> mModels;
+	enum Modelid { FLOOR, BACK_WALL, LEFT_WALL, BOX, CROSS, CROSS2, WINDOW, WINDOW2, ROCK, DRAGON, SUCK, SCIENTIST, TOTAL = 12 };
+
 private:
 	// Reference to GameData.
 	GameDataRef _data;
 
+	struct LoadData
+	{
+		std::future<void> loader;
+		int totalToLoad = 0;
+		int loadedSoFar = 0;
+		bool running = false;
+	};
+	LoadData mLoadData;
 	float gAngle = 0;
+	DirectX::SpriteBatch* pFontBatch = nullptr;
+	DirectX::SpriteFont* pFont = nullptr;
 
-	Model mBox, mBRot, mBScale, mBScroll, mBCross, mQuad, mBWin, mBall;
+	void Load();
+	void RenderLoad(float dTime);
 };

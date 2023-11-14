@@ -49,19 +49,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 	Game game;
 	game.Initialise();
 
-	bool canUpdate;
+	bool canUpdateRender;
 	float dTime = 0;
-
-	bool canRender = false;
-
-	while (WinUtil::Get().BeginLoop(canUpdate))
+	while (WinUtil::Get().BeginLoop(canUpdateRender))
 	{
-		if (canUpdate && dTime > 0)
+		if (canUpdateRender && dTime > 0)
 		{
 			game.Update(dTime);
 			game.Render(dTime);
 		}
-		dTime = WinUtil::Get().EndLoop(canUpdate);
+		dTime = WinUtil::Get().EndLoop(canUpdateRender);
 	}
 
 	game.Release();

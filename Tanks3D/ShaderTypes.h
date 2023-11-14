@@ -6,7 +6,6 @@
 
 #include "SimpleMath.h"
 
-
 /*
 This is what our vertex data will look like
 */
@@ -32,7 +31,7 @@ struct BasicMaterial
 		Specular = s;
 	}
 	BasicMaterial() : Diffuse(1, 1, 1, 1), Ambient(1, 1, 1, 1), Specular(0, 0, 0, 1) {}
-	void Set(const DirectX::SimpleMath::Vector4&d, const DirectX::SimpleMath::Vector4& a, const DirectX::SimpleMath::Vector4& s) {
+	void Set(const DirectX::SimpleMath::Vector4& d, const DirectX::SimpleMath::Vector4& a, const DirectX::SimpleMath::Vector4& s) {
 		Diffuse = d; Ambient = a; Specular = s;
 	}
 
@@ -51,11 +50,11 @@ struct Material
 		DirectX::SimpleMath::Vector2 translate = DirectX::SimpleMath::Vector2(0, 0);
 	};
 
-	Material() : flags(APPEND_PATH | LIT | CULL | CCW_WINDING) {
+	Material() : flags(TFlags::APPEND_PATH | TFlags::LIT | TFlags::CULL | TFlags::CCW_WINDING) {
 		blendFactors[0] = blendFactors[1] = blendFactors[2] = blendFactors[3] = 1;
 		pTextureRV = nullptr;
 	}
-	Material(const BasicMaterial &mat, ID3D11ShaderResourceView *pTex, TexTrsfm texTrsfm, int _flags, const std::string& _name, const std::string& file)
+	Material(const BasicMaterial& mat, ID3D11ShaderResourceView* pTex, TexTrsfm texTrsfm, int _flags, const std::string& _name, const std::string& file)
 		: gfxData(mat), name(_name), texture(file), flags(_flags) {
 		blendFactors[0] = blendFactors[1] = blendFactors[2] = blendFactors[3] = 1;
 		pTextureRV = pTex;
@@ -66,7 +65,7 @@ struct Material
 
 	BasicMaterial gfxData;	//this is the original material reflection data that gets passed to the shader
 
-	ID3D11ShaderResourceView *pTextureRV;	//handled by effects texture cache so don't release
+	ID3D11ShaderResourceView* pTextureRV;	//handled by effects texture cache so don't release
 
 	TexTrsfm texTrsfm;
 
@@ -129,7 +128,7 @@ static_assert((sizeof(GfxParamsPerFrame) % 16) == 0, "CB size not padded correct
 //shader variables that don't change within one object
 struct GfxParamsPerObj
 {
-	DirectX::SimpleMath::Matrix world;		
+	DirectX::SimpleMath::Matrix world;
 	DirectX::SimpleMath::Matrix worldInvT;	//inverse world matrix
 	DirectX::SimpleMath::Matrix worldViewProj;
 };

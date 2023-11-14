@@ -33,6 +33,7 @@ void PauseState::Update(float dTime)
 void PauseState::Render(float dTime)
 {
 	D3D& d3d = WinUtil::Get().GetD3D();
+	d3d.BeginRender(Colours::Black);
 
 	CommonStates dxstate(&d3d.GetDevice());
 	mBatch->Begin(SpriteSortMode_Deferred, dxstate.NonPremultiplied(), &d3d.GetWrapSampler());
@@ -45,6 +46,8 @@ void PauseState::Render(float dTime)
 	mTest.Draw(*mBatch);
 
 	mBatch->End();
+
+	d3d.EndRender();
 }
 
 LRESULT PauseState::WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)

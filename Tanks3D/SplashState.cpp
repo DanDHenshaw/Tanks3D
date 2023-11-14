@@ -56,6 +56,7 @@ void SplashState::Update(float dTime)
 void SplashState::Render(float dTime)
 {
 	D3D& d3d = WinUtil::Get().GetD3D();
+	d3d.BeginRender(Colours::Black);
 
 	CommonStates dxstate(&d3d.GetDevice());
 	mBatch->Begin(SpriteSortMode_Deferred, dxstate.NonPremultiplied(), &d3d.GetWrapSampler());
@@ -63,6 +64,8 @@ void SplashState::Render(float dTime)
 	mLogo.Draw(*mBatch);
 
 	mBatch->End();
+
+	d3d.EndRender();
 }
 
 LRESULT SplashState::WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)

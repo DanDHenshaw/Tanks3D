@@ -142,3 +142,9 @@ void CreateIndexBuffer(ID3D11Device& d3dDevice, UINT bufferSize, const void *pSo
 
 //invert that matrix
 DirectX::SimpleMath::Matrix InverseTranspose(const DirectX::SimpleMath::Matrix& m);
+
+/*
+Given a filename that might have a path and an extension, we need to be able to pull
+the path bit and the file extension bit out
+*/
+void StripPathAndExtension(std::string& fileName, std::string* pPath = nullptr, std::string* pExt = nullptr);
