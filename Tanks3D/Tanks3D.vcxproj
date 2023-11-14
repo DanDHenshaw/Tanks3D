@@ -117,6 +117,7 @@
     <ClCompile Include="State.h" />
     <ClCompile Include="StateMachine.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="Tank.cpp" />
     <ClCompile Include="TexCache.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="WindowUtils.cpp" />
@@ -142,6 +143,7 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="Tank.h" />
     <ClInclude Include="TexCache.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="WindowUtils.h" />

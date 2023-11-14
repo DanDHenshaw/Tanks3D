@@ -94,10 +94,7 @@ public:
 		assert(mpTex);
 		return *mpTex;
 	}
-	void SetScale(const DirectX::SimpleMath::Vector2& s) {
-		scale = s;
-	}
-	const DirectX::SimpleMath::Vector2& GetScale() const {
+	DirectX::SimpleMath::Vector2& GetScale() {
 		return scale;
 	}
 	DirectX::SimpleMath::Vector2 GetScreenSize() const {

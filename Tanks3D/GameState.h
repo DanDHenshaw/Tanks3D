@@ -5,6 +5,8 @@
 
 #include <future>
 
+#include "GameObject.h"
+
 // Inherits the State class from 'State.h'
 class GameState : public State
 {
@@ -17,7 +19,7 @@ public:
 	LRESULT WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) override;
 	void Release() override;
 
-	std::vector<Model> mModels;
+	std::vector<GameObject*> mGameObjects;
 	enum Modelid { FLOOR, BACK_WALL, LEFT_WALL, BOX, CROSS, CROSS2, WINDOW, WINDOW2, ROCK, DRAGON, SUCK, SCIENTIST, TOTAL = 12 };
 
 private:

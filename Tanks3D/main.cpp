@@ -20,19 +20,6 @@ LRESULT CALLBACK MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	return WinUtil::DefaultMssgHandler(hwnd, msg, wParam, lParam);
 }
 
-void renderer(Game* game, float* dTime)
-{
-	bool canRender;
-
-	while (WinUtil::Get().BeginLoop(canRender))
-	{
-		if (canRender && *dTime > 0)
-		{
-			game->Render(*dTime);
-		}
-	}
-}
-
 //main entry point for the game
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 	PSTR cmdLine, int showCmd)
