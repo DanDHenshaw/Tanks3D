@@ -22,7 +22,7 @@ void SplashState::Initialise()
 
 	mLogo.SetTex(*d3d.GetCache().LoadTexture(&d3d.GetDevice(), "splash/logo.dds"));
 	mLogo.colour.w = 0;
-	mLogo.SetScale(Vector2(1, 1));
+	mLogo.GetScale() = Vector2(1, 1);
 
 	mLogo.origin = Vector2(512 / 2, 512 / 2);
 

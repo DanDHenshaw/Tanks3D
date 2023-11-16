@@ -192,25 +192,23 @@ void GameState::Update(float dTime)
 	
 	gAngle += dTime * 0.5f;
 
-	if (auto* obj = dynamic_cast<GameObject3D*>(mGameObjects[Modelid::BOX]))
+	if (GameObject3D* obj = dynamic_cast<GameObject3D*>(mGameObjects[Modelid::BOX]))
 		obj->GetRotation().y = gAngle;
 
-	if (auto* obj = dynamic_cast<GameObject3D*>(mGameObjects[Modelid::CROSS]))
+	if (GameObject3D* obj = dynamic_cast<GameObject3D*>(mGameObjects[Modelid::CROSS]))
 		obj->GetRotation().y = -gAngle;
-	if (auto* obj = dynamic_cast<GameObject3D*>(mGameObjects[Modelid::CROSS2]))
+	if (GameObject3D* obj = dynamic_cast<GameObject3D*>(mGameObjects[Modelid::CROSS2]))
 		obj->GetRotation().y = -gAngle;
 
-
-	if (auto* obj = dynamic_cast<GameObject3D*>(mGameObjects[Modelid::WINDOW]))
+	if (GameObject3D* obj = dynamic_cast<GameObject3D*>(mGameObjects[Modelid::WINDOW2]))
 		obj->GetRotation().y = -gAngle * 0.5f;
-	if (auto* obj = dynamic_cast<GameObject3D*>(mGameObjects[Modelid::WINDOW2]))
+	if (GameObject3D* obj = dynamic_cast<GameObject3D*>(mGameObjects[Modelid::WINDOW2]))
 		obj->GetRotation().y = -gAngle * 0.5f;
 
 	std::vector<GameObject*> spinme{ mGameObjects[Modelid::DRAGON], mGameObjects[Modelid::SCIENTIST], mGameObjects[Modelid::ROCK], mGameObjects[Modelid::SUCK] };
 
 	for (size_t i = 0; i < spinme.size(); ++i) {
-		if (auto* obj = dynamic_cast<GameObject3D*>(spinme[i]))
-		{
+		if (GameObject3D* obj = dynamic_cast<GameObject3D*>(spinme[i])) {
 			obj->GetPosition().y = (sinf(2 * GetClock() + (PI / 4) * i)) * 0.5f;
 			obj->GetRotation().y += (i < 2) ? dTime : -dTime;
 		}
@@ -302,7 +300,7 @@ void GameState::RenderLoad(float dTime)
 
 LRESULT GameState::WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	input.Initialise(hwnd, false, false);
+	input.Initialise(hwnd, true, false);
 
 	//do something game specific here
 	switch (msg)
@@ -311,7 +309,7 @@ LRESULT GameState::WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM
 	case WM_CHAR:
 		switch (wParam)
 		{
-		case 27:
+		case VK_ESCAPE:
 			// Escape Pressed
 			_data->machine.AddState(StateRef(std::make_unique<PauseState>(_data)), false);
 			return 0;

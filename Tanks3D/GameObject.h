@@ -26,9 +26,9 @@ public:
 
 	Model& GetModel() { return mModel; }
 
-	virtual DirectX::SimpleMath::Vector3& GetPosition() { return mModel.GetPosition(); }
-	virtual DirectX::SimpleMath::Vector3& GetRotation() { return mModel.GetRotation(); }
-	virtual DirectX::SimpleMath::Vector3& GetScale() { return mModel.GetScale(); }
+	DirectX::SimpleMath::Vector3& GetPosition() { return mModel.GetPosition(); }
+	DirectX::SimpleMath::Vector3& GetRotation() { return mModel.GetRotation(); }
+	DirectX::SimpleMath::Vector3& GetScale() { return mModel.GetScale(); }
 private:
 	virtual void Initialise(D3D& d3d, std::string fileName) override;
 private:
@@ -44,9 +44,9 @@ public:
 	virtual void Update(float dTime) override;
 	void Render(D3D& d3d, float dTime) override;
 
-	virtual DirectX::SimpleMath::Vector2& GetPosition2D() { return mSprite.mPos; }
-	virtual float& GetRotation2D() { return mSprite.rotation; }
-	virtual DirectX::SimpleMath::Vector2& GetScale2D() { return mSprite.GetScale(); }
+	DirectX::SimpleMath::Vector2& GetPosition() { return mSprite.mPos; }
+	float& GetRotation() { return mSprite.rotation; }
+	DirectX::SimpleMath::Vector2& GetScale() { return mSprite.GetScale(); }
 private:
 	virtual void Initialise(D3D& d3d, std::string fileName) override;
 private:
