@@ -141,6 +141,13 @@ void GameState::Load()
 	mGameObjects[Modelid::SCIENTIST] = &dx;
 	mLoadData.loadedSoFar++;
 
+	GameObject3D tank(d3d, "tank", "tank/tank.fbx");
+	tank.GetScale() = Vector3(.15f, .15f, .15f);
+	tank.GetPosition() = Vector3(0, 0, 0);
+	tank.GetRotation() = Vector3(PI / 2, PI / 2, 0);
+	mGameObjects[Modelid::TANK] = &tank;
+	mLoadData.loadedSoFar++;
+
 	d3d.GetFX().SetupDirectionalLight(0, true, Vector3(-0.7f, -0.7f, 0.7f), Vector3(0.47f, 0.47f, 0.47f), Vector3(0.15f, 0.15f, 0.15f), Vector3(0.25f, 0.25f, 0.25f));
 }
 
@@ -152,7 +159,7 @@ void GameState::Initialise()
 	pFont = new SpriteFont(&d3d.GetDevice(), L"../bin/data/fonts/algerian.spritefont");
 	assert(pFont);
 
-	mLoadData.totalToLoad = 5;
+	mLoadData.totalToLoad = 6;
 	mLoadData.loadedSoFar = 0;
 	mLoadData.running = true;
 	mLoadData.loader = std::async(std::launch::async, &GameState::Load, this);

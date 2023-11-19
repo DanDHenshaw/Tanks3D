@@ -21,7 +21,7 @@ public:
 	void Release() override;
 
 	std::vector<GameObject*> mGameObjects;
-	enum Modelid { FLOOR, BACK_WALL, LEFT_WALL, BOX, CROSS, CROSS2, WINDOW, WINDOW2, ROCK, DRAGON, SUCK, SCIENTIST, TOTAL = 12 };
+	enum Modelid { FLOOR, BACK_WALL, LEFT_WALL, BOX, CROSS, CROSS2, WINDOW, WINDOW2, ROCK, DRAGON, SUCK, SCIENTIST, TANK, TOTAL = 13 };
 
 private:
 	MouseAndKeys input;
