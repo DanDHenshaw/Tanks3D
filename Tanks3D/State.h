@@ -38,6 +38,6 @@ public:
 
 public:
 	// Camera
-	const DirectX::SimpleMath::Vector3 mDefCamPos = DirectX::SimpleMath::Vector3(0, 2, -5);
-	DirectX::SimpleMath::Vector3 mCamPos = DirectX::SimpleMath::Vector3(0, 2, -5);
+	const DirectX::SimpleMath::Vector3 mDefCamPos = DirectX::SimpleMath::Vector3(0, 4, -10);
+	DirectX::SimpleMath::Vector3 mCamPos = DirectX::SimpleMath::Vector3(0, 4, -10);
 };
