@@ -63,11 +63,20 @@ void GameState::Load()
 	mLoadData.loadedSoFar++;
 
 	//hero models
-	Tank tank(d3d, "tank", "tank/tank.fbx");
-	tank.GetScale() = Vector3(.15f, .15f, .15f);
-	tank.GetPosition() = Vector3(0, 0, 0);
-	tank.GetRotation() = Vector3(PI / 2, PI / 2, 0);
-	mGameObjects[Modelid::TANK] = &tank;
+	Tank p1(d3d, "tank2", "tank/tank2.fbx");
+	p1.Initialise();
+	p1.GetScale() = Vector3(.15f, .15f, .15f);
+	p1.GetPosition() = Vector3(-2, 0, 0);
+	p1.GetRotation() = Vector3(PI / 2, PI / 2, 0);
+	mGameObjects[Modelid::PLAYER1] = &p1;
+	mLoadData.loadedSoFar++;
+
+	Tank p2 = p1;
+	p2.Initialise();
+	p2.GetScale() = Vector3(.15f, .15f, .15f);
+	p2.GetPosition() = Vector3(2, 0, 0);
+	p2.GetRotation() = Vector3(PI / 2, -PI / 2, 0);
+	mGameObjects[Modelid::PLAYER2] = &p2;
 	mLoadData.loadedSoFar++;
 
 	d3d.GetFX().SetupDirectionalLight(0, true, Vector3(-0.7f, -0.7f, 0.7f), Vector3(0.47f, 0.47f, 0.47f), Vector3(0.15f, 0.15f, 0.15f), Vector3(0.25f, 0.25f, 0.25f));
@@ -84,7 +93,7 @@ void GameState::Initialise()
 	pFont = new SpriteFont(&d3d.GetDevice(), L"../bin/data/fonts/algerian.spritefont");
 	assert(pFont);
 
-	mLoadData.totalToLoad = 2;
+	mLoadData.totalToLoad = 3;
 	mLoadData.loadedSoFar = 0;
 	mLoadData.running = true;
 	mLoadData.loader = std::async(std::launch::async, &GameState::Load, this);
@@ -96,8 +105,11 @@ void GameState::Update(float dTime)
 
 	if(mLoadData.loadedSoFar < mLoadData.totalToLoad) return;
 	
-	if (auto* obj = dynamic_cast<Tank*>(mGameObjects[Modelid::TANK]))
-		obj->Input(input, dTime);
+	if (auto* obj = dynamic_cast<Tank*>(mGameObjects[Modelid::PLAYER1]))
+		obj->Input(input, dTime, VK_W, VK_S, VK_A, VK_D);
+
+	if (auto* obj = dynamic_cast<Tank*>(mGameObjects[Modelid::PLAYER2]))
+		obj->Input(input, dTime, VK_UP, VK_DOWN, VK_LEFT, VK_RIGHT);
 }
 
 void GameState::Render(float dTime)
