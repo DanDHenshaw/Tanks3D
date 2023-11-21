@@ -12,11 +12,13 @@ public:
 
 	void Input(MouseAndKeys input, float dTime, unsigned short movUP = VK_W, unsigned short movDOWN = VK_S, unsigned short rotLEFT = VK_A, unsigned short rotRight = VK_D);
 
+	void Initialise();
 private:
-	float MOV_SPEED = 2.5f;
-	float ROT_SPEED = 5.0f;
+	float acceleration;
+	float accel_ot;
 
-private:
-	void Initialise(D3D& d3d, std::string fileName) override;
+	float max_fwd_speed;
+	float max_bwd_speed;
+	float rot_speed;
 };
 
