@@ -7,6 +7,7 @@
 #include "Input.h"
 #include "PauseState.h"
 #include "WindowUtils.h"
+#include "Tank.h"
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
@@ -26,69 +27,18 @@ void GameState::Load()
 	Mesh& quadMesh = BuildQuad(d3d.GetMeshMgr());
 	Mesh& cubeMesh = BuildCube(d3d.GetMeshMgr());
 
-	//textured lit box
-	GameObject3D box(d3d, cubeMesh);
-	box.GetScale() = Vector3(0.5f, 0.5f, 0.5f);
-	box.GetPosition() = Vector3(0, -0.5f, 1);
-	mGameObjects[Modelid::BOX] = &box;
-	Material mat = box.GetModel().GetMesh().GetSubMesh(0).material;
-	mat.gfxData.Set(Vector4(0.5, 0.5, 0.5, 1), Vector4(1, 1, 1, 0), Vector4(1, 1, 1, 1));
-	mat.pTextureRV = d3d.GetCache().LoadTexture(&d3d.GetDevice(), "tiles.dds");
-	mat.texture = "tiles.dds";
-	mat.flags |= Material::TFlags::TRANSPARENCY;
-	mat.SetBlendFactors(0.5, 0.5, 0.5, 1);
-	if (auto* obj = dynamic_cast<GameObject3D*>(mGameObjects[Modelid::BOX]))
-		obj->GetModel().SetOverrideMat(&mat);
-
-
-	//cross
-	GameObject3D cross(d3d, cubeMesh);
-	cross.GetScale() = Vector3(0.5f, 0.5f, 0.5f);
-	cross.GetPosition() = Vector3(1.5f, -0.45f, 1);
-	mGameObjects[Modelid::CROSS] = &cross;
-	mat.flags &= ~Material::TFlags::TRANSPARENCY;
-	mat.pTextureRV = d3d.GetCache().LoadTexture(&d3d.GetDevice(), "cross.dds");
-	mat.texture = "cross";
-	mat.flags |= Material::TFlags::ALPHA_TRANSPARENCY;
-	mat.flags &= ~Material::TFlags::CCW_WINDING;	//render the back
-	if (auto* obj = dynamic_cast<GameObject3D*>(mGameObjects[Modelid::CROSS]))
-		obj->GetModel().SetOverrideMat(&mat);
-
-	mGameObjects[Modelid::CROSS2] = mGameObjects[Modelid::CROSS];
-	mat.flags |= Material::TFlags::CCW_WINDING;	//render the front
-	if (auto* obj = dynamic_cast<GameObject3D*>(mGameObjects[Modelid::CROSS2]))
-		obj->GetModel().SetOverrideMat(&mat);
-
-	//window
-	GameObject3D window(d3d, cubeMesh);
-	window.GetScale() = Vector3(0.75f, 0.75f, 0.75f);
-	window.GetPosition() = Vector3(-1.75f, 0, 1.25f);
-	mGameObjects[Modelid::WINDOW] = &cross;
-	mat.pTextureRV = d3d.GetCache().LoadTexture(&d3d.GetDevice(), "alphaWindow.dds");
-	mat.texture = "alphawindow";
-	mat.flags |= Material::TFlags::ALPHA_TRANSPARENCY;
-	mat.flags &= ~Material::TFlags::CCW_WINDING;	//render the back
-	if (auto* obj = dynamic_cast<GameObject3D*>(mGameObjects[Modelid::WINDOW]))
-		obj->GetModel().SetOverrideMat(&mat);
-
-	mGameObjects[Modelid::WINDOW2] = mGameObjects[Modelid::WINDOW];
-	mat.flags |= Material::TFlags::CCW_WINDING;	//render the front
-	if (auto* obj = dynamic_cast<GameObject3D*>(mGameObjects[Modelid::WINDOW2]))
-		obj->GetModel().SetOverrideMat(&mat);
-
 	//quad wood floor
 	GameObject3D wFloor(d3d, quadMesh);
 	wFloor.GetScale() = Vector3(3, 1, 3);
 	wFloor.GetPosition() = Vector3(0, -1, 0);
 	wFloor.GetRotation() = Vector3(0, 0, 0);
 	mGameObjects[Modelid::FLOOR] = &wFloor;
-	mat = wFloor.GetModel().GetMesh().GetSubMesh(0).material;
+	Material mat = wFloor.GetModel().GetMesh().GetSubMesh(0).material;
 	mat.gfxData.Set(Vector4(0.9f, 0.8f, 0.8f, 0), Vector4(0.9f, 0.8f, 0.8f, 0), Vector4(0.9f, 0.8f, 0.8f, 1));
 	mat.pTextureRV = d3d.GetCache().LoadTexture(&d3d.GetDevice(), "floor.dds");
 	mat.texture = "floor.dds";
 	if (auto* obj = dynamic_cast<GameObject3D*>(mGameObjects[Modelid::FLOOR]))
 		obj->GetModel().SetOverrideMat(&mat);
-
 
 	//back wall
 	GameObject3D bWall(d3d, quadMesh);
@@ -113,35 +63,7 @@ void GameState::Load()
 	mLoadData.loadedSoFar++;
 
 	//hero models
-	GameObject3D cb(d3d, "Cube", "two_mat_cube.fbx");
-	cb.GetScale() = Vector3(0.09f, 0.09f, 0.09f);
-	cb.GetPosition() = Vector3(1, -0.f, -1.5f);
-	cb.GetRotation() = Vector3(PI / 2.f, 0, 0);
-	mGameObjects[Modelid::SUCK] = &cb;
-	mLoadData.loadedSoFar++;
-
-	GameObject3D ms(d3d, "rock", "the_rock/TheRock2.obj");
-	ms.GetScale() = Vector3(0.0035f, 0.0035f, 0.0035f);
-	ms.GetPosition() = Vector3(-1, 0.25f, -2.5f);
-	ms.GetRotation() = Vector3(0, 0, 0);
-	mGameObjects[Modelid::ROCK] = &ms;
-	mLoadData.loadedSoFar++;
-
-	GameObject3D dr(d3d, "dragon", "dragon/dragon.x");
-	dr.GetScale() = Vector3(0.002f, 0.002f, 0.002f);
-	dr.GetPosition() = Vector3(-1, 0.f, -1.5f);
-	dr.GetRotation() = Vector3(0, PI, 0);
-	mGameObjects[Modelid::DRAGON] = &dr;
-	mLoadData.loadedSoFar++;
-
-	GameObject3D dx(d3d, "DrX", "drX/DrX.fbx");
-	dx.GetScale() = Vector3(.075f, .075f, .075f);
-	dx.GetPosition() = Vector3(1, 0.5f, -2.5f);
-	dx.GetRotation() = Vector3(PI / 2, PI, 0);
-	mGameObjects[Modelid::SCIENTIST] = &dx;
-	mLoadData.loadedSoFar++;
-
-	GameObject3D tank(d3d, "tank", "tank/tank.fbx");
+	Tank tank(d3d, "tank", "tank/tank.fbx");
 	tank.GetScale() = Vector3(.15f, .15f, .15f);
 	tank.GetPosition() = Vector3(0, 0, 0);
 	tank.GetRotation() = Vector3(PI / 2, PI / 2, 0);
@@ -153,13 +75,16 @@ void GameState::Load()
 
 void GameState::Initialise()
 {
+	input.Initialise(WinUtil::Get().GetMainWnd(), true, false);
+
 	D3D& d3d = WinUtil::Get().GetD3D();
+
 	pFontBatch = new SpriteBatch(&d3d.GetDeviceCtx());
 	assert(pFontBatch);
 	pFont = new SpriteFont(&d3d.GetDevice(), L"../bin/data/fonts/algerian.spritefont");
 	assert(pFont);
 
-	mLoadData.totalToLoad = 6;
+	mLoadData.totalToLoad = 2;
 	mLoadData.loadedSoFar = 0;
 	mLoadData.running = true;
 	mLoadData.loader = std::async(std::launch::async, &GameState::Load, this);
@@ -167,59 +92,12 @@ void GameState::Initialise()
 
 void GameState::Update(float dTime)
 {
-			//case 'a':
-			//	mCamPos.y += camInc;
-			//	break;
-			//case 'z':
-			//	mCamPos.y -= camInc;
-			//	break;
-			//case 'd':
-			//	mCamPos.x -= camInc;
-			//	break;
-			//case 'f':
-			//	mCamPos.x += camInc;
-			//	break;
-			//case 'w':
-			//	mCamPos.z += camInc;
-			//	break;
-			//case 's':
-			//	mCamPos.z -= camInc;
-			//	break;
-			//case ' ':
-			//	mCamPos = mDefCamPos;
-			//	break;
-
 	const float camInc = 200.f * GetElapsedSec();
-	if(input.IsPressed(VK_W))
-	{
-		mCamPos.x += camInc;
-	}
 
 	if(mLoadData.loadedSoFar < mLoadData.totalToLoad) return;
 	
-	gAngle += dTime * 0.5f;
-
-	if (GameObject3D* obj = dynamic_cast<GameObject3D*>(mGameObjects[Modelid::BOX]))
-		obj->GetRotation().y = gAngle;
-
-	if (GameObject3D* obj = dynamic_cast<GameObject3D*>(mGameObjects[Modelid::CROSS]))
-		obj->GetRotation().y = -gAngle;
-	if (GameObject3D* obj = dynamic_cast<GameObject3D*>(mGameObjects[Modelid::CROSS2]))
-		obj->GetRotation().y = -gAngle;
-
-	if (GameObject3D* obj = dynamic_cast<GameObject3D*>(mGameObjects[Modelid::WINDOW2]))
-		obj->GetRotation().y = -gAngle * 0.5f;
-	if (GameObject3D* obj = dynamic_cast<GameObject3D*>(mGameObjects[Modelid::WINDOW2]))
-		obj->GetRotation().y = -gAngle * 0.5f;
-
-	std::vector<GameObject*> spinme{ mGameObjects[Modelid::DRAGON], mGameObjects[Modelid::SCIENTIST], mGameObjects[Modelid::ROCK], mGameObjects[Modelid::SUCK] };
-
-	for (size_t i = 0; i < spinme.size(); ++i) {
-		if (GameObject3D* obj = dynamic_cast<GameObject3D*>(spinme[i])) {
-			obj->GetPosition().y = (sinf(2 * GetClock() + (PI / 4) * i)) * 0.5f;
-			obj->GetRotation().y += (i < 2) ? dTime : -dTime;
-		}
-	}
+	if (auto* obj = dynamic_cast<Tank*>(mGameObjects[Modelid::TANK]))
+		obj->Input(input, dTime);
 }
 
 void GameState::Render(float dTime)
@@ -248,28 +126,11 @@ void GameState::Render(float dTime)
 	Matrix w = Matrix::CreateRotationY(sinf(gAngle));
 	d3d.GetFX().SetPerObjConsts(d3d.GetDeviceCtx(), w);
 
-	//main cube - forced transparency under pogram control
-	Vector3 dir = Vector3(1, 0, 0);
-	Matrix m = Matrix::CreateRotationY(gAngle);
-	dir = dir.TransformNormal(dir, m);
-	if (auto* obj = dynamic_cast<GameObject3D*>(mGameObjects[Modelid::BOX]))
-	{
-		d3d.GetFX().SetupSpotLight(1, true, obj->GetPosition(), dir, Vector3(0.2f, 0.05f, 0.05f), Vector3(0.01f, 0.01f, 0.01f), Vector3(0.01f, 0.01f, 0.01f));
-	}
-	dir *= -1;
-	if (auto* obj = dynamic_cast<GameObject3D*>(mGameObjects[Modelid::BOX]))
-	{
-		d3d.GetFX().SetupSpotLight(2, true, obj->GetPosition(), dir, Vector3(0.05f, 0.2f, 0.05f), Vector3(0.01f, 0.01f, 0.01f), Vector3(0.01f, 0.01f, 0.01f));
-	}
-	float d = sinf(gAngle) * 0.5f + 0.5f;
-
-	if(auto* obj = dynamic_cast<GameObject3D*>(mGameObjects[Modelid::BOX]))
-		obj->GetModel().HasOverrideMat()->SetBlendFactors(d, d, d, 1);
-
 	for (GameObject*& mod : mGameObjects)
 		mod->Render(d3d, dTime);
 
 	d3d.EndRender();
+	input.PostProcess();
 }
 
 void GameState::RenderLoad(float dTime)
@@ -307,11 +168,11 @@ void GameState::RenderLoad(float dTime)
 
 LRESULT GameState::WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	input.Initialise(hwnd, true, false);
-
 	//do something game specific here
 	switch (msg)
 	{
+	case WM_INPUT:
+		input.MessageEvent((HRAWINPUT)lParam);
 		// Respond to a keyboard event.
 	case WM_CHAR:
 		switch (wParam)
@@ -324,9 +185,6 @@ LRESULT GameState::WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM
 		case 'Q':
 			PostQuitMessage(0);
 			return 0;
-			case ' ':
-			mCamPos = mDefCamPos;
-			break;
 		}
 	}
 
