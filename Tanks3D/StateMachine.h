@@ -34,7 +34,7 @@ public:
 	 */
 	StateRef& GetActiveState();
 
-	void CloseStack();
+	void Release();
 
 private:
 	// Reference to the states on the stack.
