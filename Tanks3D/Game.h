@@ -21,10 +21,12 @@ struct GameData
 
 typedef std::shared_ptr<GameData> GameDataRef;
 
+// Singleton Game class used for managing, updating and rendering the games states 
 class Game : public Singleton<Game>
 {
 public:
 	Game() {}
+	// automatically release on deconstruct
 	~Game() {
 		Release();
 	}
@@ -33,17 +35,10 @@ public:
 	void Initialise();
 	void Release();
 	LRESULT WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
-
-	const DirectX::SimpleMath::Vector3 mDefCamPos = DirectX::SimpleMath::Vector3(0, 2, -5);
-	DirectX::SimpleMath::Vector3 mCamPos = DirectX::SimpleMath::Vector3(0, 2, -5);
-	Model mBox, mBRot, mBScale, mBScroll, mBCross, mQuad, mBWin, mBall;
-
 private:
 
 	// Reference to GameData.
 	GameDataRef _data = std::make_shared<GameData>();
-
-	float gAngle = 0;
 };
 
 #endif

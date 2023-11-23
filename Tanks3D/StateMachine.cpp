@@ -2,6 +2,7 @@
 
 void StateMachine::AddState(StateRef newState, bool isReplacing)
 {
+	// If state machine is closing then dont add state
 	if (_isClosing) return;
 
 	_isAdding = true;
@@ -17,16 +18,17 @@ void StateMachine::RemoveState()
 
 void StateMachine::ProcessStateChanges()
 {
+	// If state machine is closing then dont process state changes
 	if (_isClosing) return;
 
 	if (_isRemoving && !_states.empty())
 	{
-		StateRef oldState = (StateRef)_states.top().get();
+		// Removes current state from stack
 		_states.pop();
-		oldState.release();
 
 		if (!_states.empty())
 		{
+			// Resumes the current state
 			_states.top()->Resume();
 		}
 
@@ -39,14 +41,17 @@ void StateMachine::ProcessStateChanges()
 		{
 			if (_isReplacing)
 			{
+				// if state is added and states isnt empty and current state is getting replaced then remove the current state
 				_states.pop();
 			}
 			else
 			{
+				// if state is added and states isnt empty then pause current state
 				_states.top()->Pause();
 			}
 		}
 
+		// Adds new state to the to of the stack
 		_states.push(std::move(_newState));
 		_states.top()->Initialise();
 		_isAdding = false;
@@ -55,14 +60,16 @@ void StateMachine::ProcessStateChanges()
 
 StateRef& StateMachine::GetActiveState()
 {
+	// returns active state if not closing
 	if (!_isClosing)
 		return _states.top();
 }
 
-void StateMachine::CloseStack()
+void StateMachine::Release()
 {
 	_isClosing = true;
 
+	// loops through the stack and release and removes all states
 	for (int i = 0; i < _states.size(); ++i)
 	{
 		_states.top()->Release();

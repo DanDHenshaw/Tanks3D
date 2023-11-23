@@ -62,8 +62,8 @@ void GameState::Load()
 		obj->GetModel().SetOverrideMat(&mat);
 	mLoadData.loadedSoFar++;
 
-	//hero models
-	Tank p1(d3d, "tank2", "tank/tank2.fbx");
+	//tank models
+	Tank p1(d3d, "tank", "tank/tank.fbx");
 	p1.Initialise();
 	p1.GetScale() = Vector3(.15f, .15f, .15f);
 	p1.GetPosition() = Vector3(-2, 0, 0);
@@ -76,6 +76,9 @@ void GameState::Load()
 	p2.GetScale() = Vector3(.15f, .15f, .15f);
 	p2.GetPosition() = Vector3(2, 0, 0);
 	p2.GetRotation() = Vector3(PI / 2, -PI / 2, 0);
+	mat.pTextureRV = d3d.GetCache().LoadTexture(&d3d.GetDevice(), "tank/tank2.dds");
+	mat.texture = "tank/tank2.dds";
+	p2.GetModel().SetOverrideMat(&mat);
 	mGameObjects[Modelid::PLAYER2] = &p2;
 	mLoadData.loadedSoFar++;
 
