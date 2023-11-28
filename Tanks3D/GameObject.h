@@ -16,7 +16,7 @@ public:
 
 	virtual void Initialise(D3D& d3d, std::string fileName) = 0;
 
-	bool& Enabled() { return mEnabled; }
+	bool& IsActive() { return mEnabled; }
 
 private:
 	bool mEnabled = true;

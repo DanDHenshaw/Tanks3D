@@ -12,11 +12,13 @@ void Tank::Update(float dTime)
 
 void Tank::Initialise(unsigned short up, unsigned short down, unsigned short left, unsigned short right)
 {
+	// Input keys
 	movUP = up;
 	movDOWN = down;
 	rotLEFT = left;
 	rotRIGHT = right;
 
+	// Movement
 	acceleration = 0.0f;
 	accel_ot = 1.0f;
 
