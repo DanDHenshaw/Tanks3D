@@ -5,6 +5,8 @@ using namespace DirectX::SimpleMath;
 
 void Tank::Update(float dTime)
 {
+	if (!IsActive()) return;
+
 	GameObject3D::Update(dTime);
 }
 
@@ -25,6 +27,8 @@ void Tank::Initialise(unsigned short up, unsigned short down, unsigned short lef
 
 void Tank::Input(MouseAndKeys& input, float dTime)
 {
+	if (!IsActive()) return;
+
 	// Checks if any of the input keys are pressed
 	bool keypressed = input.IsPressed(movUP) || input.IsPressed(movDOWN) ||
 		input.IsPressed(rotRIGHT) || input.IsPressed(rotLEFT);

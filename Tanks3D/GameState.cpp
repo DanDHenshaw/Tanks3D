@@ -219,6 +219,14 @@ LRESULT GameState::WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM
 	case WM_CHAR:
 		switch (wParam)
 		{
+		case VK_1:
+			if (Tank* obj = dynamic_cast<Tank*>(mGameObjects[Modelid::PLAYER1]))
+				obj->IsActive() = !obj->IsActive();
+			return 0;
+		case VK_2:
+			if (Tank* obj = dynamic_cast<Tank*>(mGameObjects[Modelid::PLAYER2]))
+				obj->IsActive() = !obj->IsActive();
+			return 0;
 		case VK_ESCAPE:
 			// Adds a new PauseState over the current state. When PauseState is removed it will transition back to this state.
 			_data->machine.AddState(StateRef(std::make_unique<PauseState>(_data)), false);

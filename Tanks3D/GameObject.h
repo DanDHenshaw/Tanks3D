@@ -15,6 +15,11 @@ public:
 	virtual void Render(D3D& d3d, float dTime) = 0;
 
 	virtual void Initialise(D3D& d3d, std::string fileName) = 0;
+
+	bool& Enabled() { return mEnabled; }
+
+private:
+	bool mEnabled = true;
 };
 
 // 3D gameobject class

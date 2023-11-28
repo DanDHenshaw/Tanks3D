@@ -32,6 +32,7 @@ GameObject3D::GameObject3D(D3D& d3d, Mesh& mesh)
 
 void GameObject3D::Update(float dTime)
 {
+	if (!IsActive()) return;
 }
 
 void GameObject3D::Initialise(D3D& d3d, std::string fileName)
@@ -46,6 +47,8 @@ void GameObject3D::Initialise(D3D& d3d, std::string fileName)
 
 void GameObject3D::Render(D3D& d3d, float dTime)
 {
+	if (!IsActive()) return;
+
 	// Renders the model with lighting data
 	d3d.GetFX().Render(mModel);
 }
@@ -60,10 +63,13 @@ GameObject2D::GameObject2D(D3D& d3d, std::string fileName, SpriteBatch* batch)
 
 void GameObject2D::Update(float dTime)
 {
+	if (!IsActive()) return;
 }
 
 void GameObject2D::Initialise(D3D& d3d, std::string fileName)
 {
+	if (!IsActive()) return;
+
 	// Loads a texture to the sprite
 	mSprite.SetTex(*d3d.GetCache().LoadTexture(&d3d.GetDevice(), fileName));
 	// Sets scale and pos
