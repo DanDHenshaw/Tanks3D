@@ -42,6 +42,7 @@ namespace FX
 	class MyFX
 	{
 	public:
+
 		MyFX(D3D& d3d)
 			:mD3D(d3d) { }
 		~MyFX() {

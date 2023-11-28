@@ -238,7 +238,7 @@ void MouseAndKeys::GetMousePosAbsolute(Vector2& pos)
 
 void MouseAndKeys::MessageEvent(HRAWINPUT rawInput)
 {
-	UINT dwSize;
+	UINT dwSize = 0;
 
 	UINT res = GetRawInputData(rawInput, RID_INPUT, NULL, &dwSize, sizeof(RAWINPUTHEADER));
 	if (res != 0)

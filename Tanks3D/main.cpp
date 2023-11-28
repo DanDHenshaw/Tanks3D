@@ -9,12 +9,11 @@ std::string name = "Tanks3D";
 
 LRESULT CALLBACK MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	//do something game specific here
 	switch (msg)
 	{
-		// Respond to a keyboard event.
 	case WM_CHAR:
 	case WM_INPUT:
+		// Sends input to the game manager
 		return Game::Get().WindowsMssgHandler(hwnd, msg, wParam, lParam);
 	}
 	return WinUtil::DefaultMssgHandler(hwnd, msg, wParam, lParam);

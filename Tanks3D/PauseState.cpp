@@ -9,7 +9,7 @@ using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
 PauseState::PauseState(GameDataRef data)
-	: _data(data), mTest(WinUtil::Get().GetD3D())
+	: _data(data)
 {
 }
 
@@ -17,13 +17,11 @@ void PauseState::Initialise()
 {
 	D3D& d3d = WinUtil::Get().GetD3D();
 
+	// Initialises SpriteBatch
 	mBatch = new SpriteBatch(&d3d.GetDeviceCtx());
 
+	// Loads a font to the SpriteFont
 	mPauseLabel = d3d.GetCache().LoadFont(&d3d.GetDevice(), "fonts/algerian.spritefont");
-
-	mTest.SetTex(*d3d.GetCache().LoadTexture(&d3d.GetDevice(), "tiles.dds"));
-	mTest.GetScale() = Vector2(1, 1);
-	mTest.mPos = Vector2(0, 0);
 }
 
 void PauseState::Update(float dTime)
@@ -38,12 +36,11 @@ void PauseState::Render(float dTime)
 	CommonStates dxstate(&d3d.GetDevice());
 	mBatch->Begin(SpriteSortMode_Deferred, dxstate.NonPremultiplied(), &d3d.GetWrapSampler());
 
+	// Sets SpriteFont string and draws it to the center of the screen
 	std::string text = "PAUSE";
 	int w, h;
 	WinUtil::Get().GetClientExtents(w, h);
 	mPauseLabel->DrawString(mBatch, text.c_str(), Vector2(w / 2, h / 2), Vector4(1, 1, 1, 1));
-
-	mTest.Draw(*mBatch);
 
 	mBatch->End();
 
@@ -59,7 +56,7 @@ LRESULT PauseState::WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARA
 		switch (wParam)
 		{
 		case 27:
-			// Escape Pressed
+			// Remove the current state from the state machine
 			_data->machine.RemoveState();
 			return 0;
 		case 'q':
@@ -76,9 +73,11 @@ void PauseState::Release()
 {
 	State::Release();
 
+	// Deletes the allocated memory for the SpriteBatch
 	delete mBatch;
 	mBatch = nullptr;
 
+	// Deletes the allocated memory for the SpriteFont
 	delete mPauseLabel;
 	mPauseLabel = nullptr;
 }

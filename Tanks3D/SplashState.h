@@ -3,7 +3,6 @@
 #include "Game.h"
 #include "Sprite.h"
 #include "State.h"
-#include "Timer.h"
 
 // Inherits the State class from 'State.h'
 class SplashState : public State
@@ -21,6 +20,7 @@ private:
 	// Reference to GameData.
 	GameDataRef _data;
 
+	// Length of time the splash screen is shown on screen
 	float mShowtime = 3.0f;
 	float mElapsedTime = 0;
 

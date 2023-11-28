@@ -24,6 +24,4 @@ private:
 	DirectX::SpriteBatch* mBatch = nullptr;
 
 	DirectX::SpriteFont *mPauseLabel = nullptr;
-
-	Sprite mTest;
 };
