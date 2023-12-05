@@ -45,6 +45,12 @@ void GameState::Load()
   p1.GetScale() = Vector3(.15f, .15f, .15f);
   p1.GetPosition() = Vector3(-2, ground.GetPosition().x, 0);
   p1.GetRotation() = Vector3(PI / 2, PI / 2, 0);
+  // Loads the tank1.dds texture file into the material
+  mat.texTrsfm.scale = Vector2(1);
+  mat.pTextureRV = d3d.GetCache().LoadTexture(&d3d.GetDevice(), "tank/tank1.dds");
+  mat.texture = "tank/tank1.dds";
+  // Replaces the previous material with the new one
+  p1.GetModel().SetOverrideMat(&mat);
   mGameObjects[Modelid::PLAYER1] = &p1;
   mLoadData.loadedSoFar++;
 
