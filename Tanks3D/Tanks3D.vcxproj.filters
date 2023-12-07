@@ -125,6 +125,9 @@
     <ClCompile Include="Tank.cpp">
       <Filter>Source Files\Game\Objects\Tank</Filter>
     </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowUtils.h">
@@ -189,6 +192,9 @@
     </ClInclude>
     <ClInclude Include="Tank.h">
       <Filter>Source Files\Game\Objects\Tank</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Source Files\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

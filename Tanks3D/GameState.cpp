@@ -41,10 +41,10 @@ void GameState::Load()
   //tank models
   // Initialises a tank object with a tank.fbx file
   Tank p1(d3d, "tank", "tank/tank.fbx");
-  p1.Initialise(VK_W, VK_S, VK_A, VK_D);
   p1.GetScale() = Vector3(.15f, .15f, .15f);
   p1.GetPosition() = Vector3(-2, ground.GetPosition().x, 0);
   p1.GetRotation() = Vector3(PI / 2, PI / 2, 0);
+  p1.Initialise(VK_W, VK_S, VK_A, VK_D);
   // Loads the tank1.dds texture file into the material
   mat.texTrsfm.scale = Vector2(1);
   mat.pTextureRV = d3d.GetCache().LoadTexture(&d3d.GetDevice(), "tank/tank1.dds");
@@ -56,10 +56,10 @@ void GameState::Load()
 
   // Initialises a second tank object by copying the p1 tank to p2
   Tank p2 = p1;
-  p2.Initialise(VK_UP, VK_DOWN, VK_LEFT, VK_RIGHT);
   p2.GetScale() = Vector3(.15f, .15f, .15f);
   p2.GetPosition() = Vector3(2, ground.GetPosition().x, 0);
   p2.GetRotation() = Vector3(PI / 2, -PI / 2, 0);
+  p2.Initialise(VK_UP, VK_DOWN, VK_LEFT, VK_RIGHT);
   // Loads the tank2.dds texture file into the material
   mat.texTrsfm.scale = Vector2 (1);
   mat.pTextureRV = d3d.GetCache().LoadTexture(&d3d.GetDevice(), "tank/tank2.dds");
@@ -106,13 +106,28 @@ void GameState::Update(float dTime)
     mLoadData.running = false;
     return;
   }
-  
-  // Attempts to cast the tank from GameObject to Tank object
-  if (Tank* obj = dynamic_cast<Tank*>(mGameObjects[Modelid::PLAYER1]))
-    obj->Input(input, dTime);
 
-  if (Tank* obj = dynamic_cast<Tank*>(mGameObjects[Modelid::PLAYER2]))
-    obj->Input(input, dTime);
+  for(int i = 0; i < mGameObjects.size(); i++)
+  {
+    mGameObjects[i]->Update(dTime);
+  }
+  
+  Tank* p1;
+  // Attempts to cast the tank from GameObject to Tank object
+  if(p1 = dynamic_cast<Tank*>(mGameObjects[Modelid::PLAYER1]));
+    //p1->Input(input, dTime);
+
+  Tank* p2;
+  if(p2 = dynamic_cast<Tank*>(mGameObjects[Modelid::PLAYER2]));
+    //p2->Input(input, dTime);
+
+  if(!Collisions::Intersect(p1->GetBoundingSphere(), p2->GetBoundingSphere())) {
+    p1->Input(input, dTime);
+    p2->Input(input, dTime);
+  }
+  else {
+
+  }
 }
 
 void GameState::Render(float dTime)

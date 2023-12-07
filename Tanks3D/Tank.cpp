@@ -8,10 +8,15 @@ void Tank::Update(float dTime)
 	if (!IsActive()) return;
 
 	GameObject3D::Update(dTime);
+
+	collision.UpdatePos(GetPosition());
 }
 
 void Tank::Initialise(unsigned short up, unsigned short down, unsigned short left, unsigned short right)
 {
+	// Collision box
+	collision.radius = GetScale().z * 2.8f;
+
 	// Input keys
 	movUP = up;
 	movDOWN = down;

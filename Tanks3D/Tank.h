@@ -3,6 +3,8 @@
 
 #include "Input.h"
 
+#include "Collision.h"
+
 // Drivable tank
 class Tank : public	GameObject3D
 {
@@ -23,6 +25,11 @@ public:
 	*/
 	void Initialise(unsigned short up = VK_W, unsigned short down = VK_S, unsigned short left = VK_A, unsigned short right = VK_D);
 
+public:
+	Collisions::BoundingSphere GetBoundingSphere() const {
+		return collision;
+	}
+
 private:
 	// Movement variables
 	unsigned short movUP = VK_W, movDOWN = VK_S, rotLEFT = VK_A, rotRIGHT = VK_D;
@@ -38,5 +45,8 @@ private:
 	float max_bwd_speed;
 	// rotation speed;
 	float rot_speed;
+
+private:
+	Collisions::BoundingSphere collision;
 };
 
