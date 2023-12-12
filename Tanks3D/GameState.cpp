@@ -121,12 +121,30 @@ void GameState::Update(float dTime)
   if(p2 = dynamic_cast<Tank*>(mGameObjects[Modelid::PLAYER2]));
     //p2->Input(input, dTime);
 
-  if(!Collisions::Intersect(p1->GetBoundingSphere(), p2->GetBoundingSphere())) {
-    p1->Input(input, dTime);
-    p2->Input(input, dTime);
+  if(Collisions::PointInsideSphere(p1->GetForwardPoint(), p2->GetBoundingSphere()))
+  {
+    p1->Input(input, dTime, false, true);
   }
-  else {
+  else if(Collisions::PointInsideSphere(p1->GetBackwardPoint(), p2->GetBoundingSphere()))
+  {
+    p1->Input(input, dTime, true, false);
+  }
+  else
+  {
+    p1->Input(input, dTime);
+  }
 
+  if(Collisions::PointInsideSphere(p2->GetForwardPoint(), p1->GetBoundingSphere()))
+  {
+    p2->Input(input, dTime, false, true);
+  }
+  else if(Collisions::PointInsideSphere(p2->GetBackwardPoint(), p1->GetBoundingSphere()))
+  {
+    p2->Input(input, dTime, true, false);
+  }
+  else
+  {
+    p2->Input(input, dTime);
   }
 }
 

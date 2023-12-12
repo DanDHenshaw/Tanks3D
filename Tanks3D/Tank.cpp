@@ -10,6 +10,16 @@ void Tank::Update(float dTime)
 	GameObject3D::Update(dTime);
 
 	collision.UpdatePos(GetPosition());
+
+	// Gets the rotation + 90 degrees to account for the models rotation
+	float angle = GetRotation().y + PI / 2;
+	fwdPoint = GetPosition();
+	fwdPoint.x -= 0.5f * cos(angle);
+	fwdPoint.z += 0.5f * sin(angle);
+
+	bwdPoint = GetPosition();
+	bwdPoint.x += 0.5f * cos(angle);
+	bwdPoint.z -= 0.5f * sin(angle);
 }
 
 void Tank::Initialise(unsigned short up, unsigned short down, unsigned short left, unsigned short right)
@@ -32,7 +42,7 @@ void Tank::Initialise(unsigned short up, unsigned short down, unsigned short lef
 	rot_speed = 1.5f;
 }
 
-void Tank::Input(MouseAndKeys& input, float dTime)
+void Tank::Input(MouseAndKeys& input, float dTime, bool canUp, bool canDown)
 {
 	if (!IsActive()) return;
 
@@ -58,7 +68,7 @@ void Tank::Input(MouseAndKeys& input, float dTime)
 
 		// Gets the rotation + 90 degrees to account for the models rotation
 		float angle = GetRotation().y + PI / 2;
-		if (input.IsPressed(movUP))
+		if (input.IsPressed(movUP) && canUp)
 		{
 			// Increase acceleration by accel_ot * dTime
 			acceleration += accel_ot * dTime;
@@ -70,7 +80,7 @@ void Tank::Input(MouseAndKeys& input, float dTime)
 			// Add acceleration * sin(angle) from the position z
 			pos.z += acceleration * sin(angle);
 		}
-		else if (input.IsPressed(movDOWN))
+		else if (input.IsPressed(movDOWN) && canDown)
 		{
 			// Increase acceleration by accel_ot * dTime
 			acceleration += accel_ot * dTime;

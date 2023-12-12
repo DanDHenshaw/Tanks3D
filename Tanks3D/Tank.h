@@ -18,7 +18,7 @@ public:
 	* input - handle keys
 	* dTime - elapsed time
 	*/
-	void Input(MouseAndKeys& input, float dTime);
+	void Input(MouseAndKeys& input, float dTime, bool canUp = true, bool canDown = true);
 
 	/*
 	* up, down, left, right - keycodes for movement
@@ -30,11 +30,17 @@ public:
 		return collision;
 	}
 
+	DirectX::SimpleMath::Vector3 GetForwardPoint() const {
+		return fwdPoint;
+	}
+	DirectX::SimpleMath::Vector3 GetBackwardPoint() const {
+		return bwdPoint;
+	}
+
 private:
 	// Movement variables
 	unsigned short movUP = VK_W, movDOWN = VK_S, rotLEFT = VK_A, rotRIGHT = VK_D;
 
-private:
 	float acceleration;
 	// acceleration increase over time
 	float accel_ot;
@@ -48,5 +54,7 @@ private:
 
 private:
 	Collisions::BoundingSphere collision;
+	DirectX::SimpleMath::Vector3 fwdPoint;
+	DirectX::SimpleMath::Vector3 bwdPoint;
 };
 
