@@ -117,3 +117,15 @@ bool Sprite::FadeOut(float dTime, float fadeSpeed)
 
 	return true;
 }
+
+void Sprite::Initialise(std::string file, Vector2 pos)
+{
+    SetTex(*mD3D.GetCache().LoadTexture(&mD3D.GetDevice(), file));
+    GetScale() = Vector2(1, 1);
+
+    origin = GetTexData().dim / 2.0f;
+
+    mPos = pos;
+
+    rotation = 0;
+}

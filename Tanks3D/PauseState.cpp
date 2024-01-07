@@ -9,19 +9,38 @@ using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
 PauseState::PauseState(GameDataRef data)
-	: _data(data)
+  : _data(data), pLogo(WinUtil::Get().GetD3D()), pResume(WinUtil::Get().GetD3D()), pMenu(WinUtil::Get().GetD3D()), pExit(WinUtil::Get().GetD3D())
+
 {
+}
+
+void InitialiseSprite(D3D& d3d, Sprite& spr, std::string file, Vector2 origin, Vector2 pos)
+{
+  // Load texture play button
+  spr.SetTex(*d3d.GetCache().LoadTexture(&d3d.GetDevice(), file));
+  spr.GetScale() = Vector2(1, 1);
+
+  spr.origin = origin;
+
+  spr.mPos = pos;
+
+  spr.rotation = 0;
 }
 
 void PauseState::Initialise()
 {
-	D3D& d3d = WinUtil::Get().GetD3D();
+  D3D& d3d = WinUtil::Get().GetD3D();
 
-	// Initialises SpriteBatch
-	mBatch = new SpriteBatch(&d3d.GetDeviceCtx());
+  // Initialise a new sprite batch
+  mBatch = new SpriteBatch(&d3d.GetDeviceCtx());
 
-	// Loads a font to the SpriteFont
-	mPauseLabel = d3d.GetCache().LoadFont(&d3d.GetDevice(), "fonts/algerian.spritefont");
+  int w, h;
+  WinUtil::Get().GetClientExtents(w, h);
+
+  pLogo.Initialise("logo.dds", Vector2(w / 2, h / 4));
+  pResume.sprite.Initialise("pause/resume.dds", Vector2(w / 2, h / 2));
+  pMenu.sprite.Initialise("pause/menu.dds", Vector2(w / 2, h / 1.5));
+  pExit.sprite.Initialise("menu/quit.dds", Vector2(w / 2, h / 1.25));
 }
 
 void PauseState::Update(float dTime)
@@ -30,21 +49,21 @@ void PauseState::Update(float dTime)
 
 void PauseState::Render(float dTime)
 {
-	D3D& d3d = WinUtil::Get().GetD3D();
-	d3d.BeginRender(Colours::Black);
+  D3D& d3d = WinUtil::Get().GetD3D();
+  d3d.BeginRender(Colours::Black);
 
-	CommonStates dxstate(&d3d.GetDevice());
-	mBatch->Begin(SpriteSortMode_Deferred, dxstate.NonPremultiplied(), &d3d.GetWrapSampler());
+  // Starts the sprite batch
+  CommonStates dxstate(&d3d.GetDevice());
+  mBatch->Begin(SpriteSortMode_Deferred, dxstate.NonPremultiplied(), &d3d.GetWrapSampler());
 
-	// Sets SpriteFont string and draws it to the center of the screen
-	std::string text = "PAUSE";
-	int w, h;
-	WinUtil::Get().GetClientExtents(w, h);
-	mPauseLabel->DrawString(mBatch, text.c_str(), Vector2(w / 2, h / 2), Vector4(1, 1, 1, 1));
+  pLogo.Draw(*mBatch);
+  pResume.sprite.Draw(*mBatch);
+  pMenu.sprite.Draw(*mBatch);
+  pExit.sprite.Draw(*mBatch);
 
-	mBatch->End();
+  mBatch->End();
 
-	d3d.EndRender();
+  d3d.EndRender();
 }
 
 LRESULT PauseState::WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -71,13 +90,9 @@ LRESULT PauseState::WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARA
 
 void PauseState::Release()
 {
-	State::Release();
+  State::Release();
 
-	// Deletes the allocated memory for the SpriteBatch
-	delete mBatch;
-	mBatch = nullptr;
-
-	// Deletes the allocated memory for the SpriteFont
-	delete mPauseLabel;
-	mPauseLabel = nullptr;
+  // Deletes the allocated memory for the SpriteBatch
+  delete mBatch;
+  mBatch = nullptr;
 }

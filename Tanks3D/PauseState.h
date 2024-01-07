@@ -4,6 +4,7 @@
 #include "Sprite.h"
 #include "SpriteFont.h"
 #include "State.h"
+#include "Button.h"
 
 // Inherits the State class from 'State.h'
 class PauseState : public State
@@ -21,7 +22,11 @@ private:
 	// Reference to GameData.
 	GameDataRef _data;
 
-	DirectX::SpriteBatch* mBatch = nullptr;
+  DirectX::SpriteBatch* mBatch = nullptr;
 
-	DirectX::SpriteFont *mPauseLabel = nullptr;
+  Sprite pLogo;
+
+  Button pResume;
+  Button pMenu;
+  Button pExit;
 };

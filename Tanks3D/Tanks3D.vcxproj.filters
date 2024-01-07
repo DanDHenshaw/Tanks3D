@@ -57,6 +57,9 @@
     <Filter Include="Source Files\Game\State\MenuState">
       <UniqueIdentifier>{641d1890-fa13-4b1c-a40e-b2370cd6f716}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Core\Rendering\Elements">
+      <UniqueIdentifier>{3d198c40-4d26-4028-8678-9701a5cd0217}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowUtils.cpp">
@@ -128,6 +131,9 @@
     <ClCompile Include="Collision.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Source Files\Core\Rendering\Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowUtils.h">
@@ -195,6 +201,9 @@
     </ClInclude>
     <ClInclude Include="Collision.h">
       <Filter>Source Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Source Files\Core\Rendering\Elements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

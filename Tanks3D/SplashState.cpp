@@ -22,7 +22,7 @@ void SplashState::Initialise()
 	mBatch = new SpriteBatch(&d3d.GetDeviceCtx());
 
 	// Load texture and set its alpha to 0
-	mLogo.SetTex(*d3d.GetCache().LoadTexture(&d3d.GetDevice(), "splash/logo.dds"));
+	mLogo.SetTex(*d3d.GetCache().LoadTexture(&d3d.GetDevice(), "splash/company_logo.dds"));
 	mLogo.colour.w = 0;
 	mLogo.GetScale() = Vector2(1, 1);
 

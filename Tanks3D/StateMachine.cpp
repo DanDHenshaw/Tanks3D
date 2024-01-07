@@ -70,9 +70,9 @@ void StateMachine::Release()
 	_isClosing = true;
 
 	// loops through the stack and release and removes all states
-	for (int i = 0; i < _states.size(); ++i)
-	{
-		_states.top()->Release();
-		_states.pop();
-	}
+  while (!_states.empty()) 
+  {
+    _states.top()->Release();
+    _states.pop();
+  }
 }

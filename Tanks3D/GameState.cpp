@@ -27,7 +27,7 @@ void GameState::Load()
 
   //ground model
   // Initialises a game object 3d with a ground.fbx file
-  GameObject3D ground(d3d, "ground", "ground/ground.fbx");
+  GameObject3D ground(d3d, "ground", "game/ground/ground.fbx");
   ground.GetScale() = Vector3(10);
   ground.GetPosition() = Vector3(0, 0, 0);
   ground.GetRotation() = Vector3(PI / 2, 0, 0);
@@ -40,15 +40,15 @@ void GameState::Load()
 
   //tank models
   // Initialises a tank object with a tank.fbx file
-  Tank p1(d3d, "tank", "tank/tank.fbx");
+  Tank p1(d3d, "tank", "game/tank/tank.fbx");
   p1.GetScale() = Vector3(.15f, .15f, .15f);
   p1.GetPosition() = Vector3(-2, ground.GetPosition().x, 0);
   p1.GetRotation() = Vector3(PI / 2, PI / 2, 0);
   p1.Initialise(VK_W, VK_S, VK_A, VK_D);
   // Loads the tank1.dds texture file into the material
   mat.texTrsfm.scale = Vector2(1);
-  mat.pTextureRV = d3d.GetCache().LoadTexture(&d3d.GetDevice(), "tank/tank1.dds");
-  mat.texture = "tank/tank1.dds";
+  mat.pTextureRV = d3d.GetCache().LoadTexture(&d3d.GetDevice(), "game/tank/tank1.dds");
+  mat.texture = "game/tank/tank1.dds";
   // Replaces the previous material with the new one
   p1.GetModel().SetOverrideMat(&mat);
   mGameObjects[Modelid::PLAYER1] = &p1;
@@ -62,8 +62,8 @@ void GameState::Load()
   p2.Initialise(VK_UP, VK_DOWN, VK_LEFT, VK_RIGHT);
   // Loads the tank2.dds texture file into the material
   mat.texTrsfm.scale = Vector2 (1);
-  mat.pTextureRV = d3d.GetCache().LoadTexture(&d3d.GetDevice(), "tank/tank2.dds");
-  mat.texture = "tank/tank2.dds";
+  mat.pTextureRV = d3d.GetCache().LoadTexture(&d3d.GetDevice(), "game/tank/tank2.dds");
+  mat.texture = "game/tank/tank2.dds";
   // Replaces the previous material with the new one
   p2.GetModel().SetOverrideMat(&mat);
   mGameObjects[Modelid::PLAYER2] = &p2;

@@ -105,6 +105,8 @@ public:
 public:
 	bool FadeIn(float dTime, float fadeSpeed = 1);
 	bool FadeOut(float dTime, float fadeSpeed = 1);
+
+  void Initialise(std::string file, DirectX::SimpleMath::Vector2 pos);
 };
 
 
