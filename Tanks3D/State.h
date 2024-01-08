@@ -1,6 +1,8 @@
 #pragma once
 #include "D3D.h"
 
+#include "Input.h"
+
 class State
 {
 public:

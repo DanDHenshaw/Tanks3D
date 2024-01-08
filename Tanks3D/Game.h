@@ -17,6 +17,7 @@
 struct GameData
 {
 	StateMachine machine;
+  MouseAndKeys input; // Input
 };
 
 typedef std::shared_ptr<GameData> GameDataRef;

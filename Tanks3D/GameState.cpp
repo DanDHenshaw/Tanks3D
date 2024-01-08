@@ -4,7 +4,6 @@
 
 #include "GameObject.h"
 #include "GeometryBuilder.h"
-#include "Input.h"
 #include "PauseState.h"
 #include "WindowUtils.h"
 #include "Tank.h"
@@ -74,8 +73,6 @@ void GameState::Load()
 
 void GameState::Initialise()
 {
-  input.Initialise(WinUtil::Get().GetMainWnd(), true, false);
-
   D3D& d3d = WinUtil::Get().GetD3D();
 
   pFontBatch = new SpriteBatch(&d3d.GetDeviceCtx());
@@ -123,28 +120,28 @@ void GameState::Update(float dTime)
 
   if(Collisions::PointInsideSphere(p1->GetForwardPoint(), p2->GetBoundingSphere()))
   {
-    p1->Input(input, dTime, false, true);
+    p1->Input(_data->input, dTime, false, true);
   }
   else if(Collisions::PointInsideSphere(p1->GetBackwardPoint(), p2->GetBoundingSphere()))
   {
-    p1->Input(input, dTime, true, false);
+    p1->Input(_data->input, dTime, true, false);
   }
   else
   {
-    p1->Input(input, dTime);
+    p1->Input(_data->input, dTime);
   }
 
   if(Collisions::PointInsideSphere(p2->GetForwardPoint(), p1->GetBoundingSphere()))
   {
-    p2->Input(input, dTime, false, true);
+    p2->Input(_data->input, dTime, false, true);
   }
   else if(Collisions::PointInsideSphere(p2->GetBackwardPoint(), p1->GetBoundingSphere()))
   {
-    p2->Input(input, dTime, true, false);
+    p2->Input(_data->input, dTime, true, false);
   }
   else
   {
-    p2->Input(input, dTime);
+    p2->Input(_data->input, dTime);
   }
 }
 
@@ -180,7 +177,6 @@ void GameState::Render(float dTime)
     obj->Render(d3d, dTime);
 
   d3d.EndRender();
-  input.PostProcess();
 }
 
 void GameState::RenderLoad(float dTime)
@@ -221,10 +217,6 @@ LRESULT GameState::WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM
   //do something game specific here
   switch (msg)
   {
-  case WM_INPUT:
-    input.MessageEvent((HRAWINPUT)lParam);
-    break;
-    // Respond to a keyboard event.
   case WM_CHAR:
     switch (wParam)
     {

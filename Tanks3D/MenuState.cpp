@@ -24,14 +24,40 @@ void MenuState::Initialise()
   int w, h;
   WinUtil::Get().GetClientExtents(w, h);
 
-  pLogo.Initialise("logo.dds", Vector2(w / 2, h / 4));
-  pPlay.sprite.Initialise("menu/play.dds", Vector2(w / 2, h / 2));
+  pLogo.Initialise("logo.dds", Vector2(w / 2, h / 4.5f));
+  pPlay.sprite.Initialise("menu/play.dds", Vector2(w / 2, h / 2.25f));
   pExit.sprite.Initialise("menu/quit.dds", Vector2(w / 2, h / 1.5f));
 }
 
 void MenuState::Update(float dTime)
 {
-	//_data->machine.AddState(StateRef(std::make_unique<GameState>(_data)), true);
+  if (pPlay.IsMouseOverButton(_data->input.GetMousePos(true))) 
+  {
+    pPlay.ButtonHover(true);
+
+    if (_data->input.GetMouseButton(MouseAndKeys::ButtonT::LBUTTON))
+    {
+      _data->machine.AddState(StateRef(std::make_unique<GameState>(_data)), true);
+    }
+  }
+  else 
+  {
+    pPlay.ButtonHover(false);
+  }
+
+  if (pExit.IsMouseOverButton(_data->input.GetMousePos(true)))
+  {
+    pExit.ButtonHover(true);
+
+    if (_data->input.GetMouseButton(MouseAndKeys::ButtonT::LBUTTON))
+    {
+      PostQuitMessage(0);
+    }
+  }
+  else
+  {
+    pExit.ButtonHover(false);
+  }
 }
 
 void MenuState::Render(float dTime)

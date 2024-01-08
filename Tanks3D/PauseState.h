@@ -27,6 +27,5 @@ private:
   Sprite pLogo;
 
   Button pResume;
-  Button pMenu;
   Button pExit;
 };

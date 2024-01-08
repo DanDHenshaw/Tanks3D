@@ -4,12 +4,13 @@
 
 #include "CommonStates.h"
 #include "WindowUtils.h"
+#include "MenuState.h"
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
 PauseState::PauseState(GameDataRef data)
-  : _data(data), pLogo(WinUtil::Get().GetD3D()), pResume(WinUtil::Get().GetD3D()), pMenu(WinUtil::Get().GetD3D()), pExit(WinUtil::Get().GetD3D())
+  : _data(data), pLogo(WinUtil::Get().GetD3D()), pResume(WinUtil::Get().GetD3D()), pExit(WinUtil::Get().GetD3D())
 
 {
 }
@@ -37,14 +38,40 @@ void PauseState::Initialise()
   int w, h;
   WinUtil::Get().GetClientExtents(w, h);
 
-  pLogo.Initialise("logo.dds", Vector2(w / 2, h / 4));
-  pResume.sprite.Initialise("pause/resume.dds", Vector2(w / 2, h / 2));
-  pMenu.sprite.Initialise("pause/menu.dds", Vector2(w / 2, h / 1.5));
-  pExit.sprite.Initialise("menu/quit.dds", Vector2(w / 2, h / 1.25));
+  pLogo.Initialise("logo.dds", Vector2(w / 2, h / 4.5f));
+  pResume.sprite.Initialise("pause/resume.dds", Vector2(w / 2, h / 2.25f));
+  pExit.sprite.Initialise("menu/quit.dds", Vector2(w / 2, h / 1.5f));
 }
 
 void PauseState::Update(float dTime)
 {
+  if (pResume.IsMouseOverButton(_data->input.GetMousePos(true)))
+  {
+    pResume.ButtonHover(true);
+
+    if (_data->input.GetMouseButton(MouseAndKeys::ButtonT::LBUTTON))
+    {
+      _data->machine.RemoveState();
+    }
+  }
+  else
+  {
+    pResume.ButtonHover(false);
+  }
+
+  if (pExit.IsMouseOverButton(_data->input.GetMousePos(true)))
+  {
+    pExit.ButtonHover(true);
+
+    if (_data->input.GetMouseButton(MouseAndKeys::ButtonT::LBUTTON))
+    {
+      PostQuitMessage(0);
+    }
+  }
+  else
+  {
+    pExit.ButtonHover(false);
+  }
 }
 
 void PauseState::Render(float dTime)
@@ -58,7 +85,6 @@ void PauseState::Render(float dTime)
 
   pLogo.Draw(*mBatch);
   pResume.sprite.Draw(*mBatch);
-  pMenu.sprite.Draw(*mBatch);
   pExit.sprite.Draw(*mBatch);
 
   mBatch->End();

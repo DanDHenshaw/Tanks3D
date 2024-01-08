@@ -23,9 +23,6 @@ public:
 	std::vector<GameObject*> mGameObjects;
 	enum Modelid { FLOOR, PLAYER1, PLAYER2, TOTAL = 3 };
 
-private: // Input
-	MouseAndKeys input;
-
 private:
 	// Reference to GameData.
 	GameDataRef _data;
