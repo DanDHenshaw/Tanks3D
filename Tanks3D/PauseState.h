@@ -6,6 +6,8 @@
 #include "State.h"
 #include "Button.h"
 
+#include "GameObject.h"
+
 // Inherits the State class from 'State.h'
 class PauseState : public State
 {
@@ -24,7 +26,7 @@ private:
 
   DirectX::SpriteBatch* mBatch = nullptr;
 
-  Sprite pLogo;
+  GameObject2D pLogo;
 
   Button pResume;
   Button pExit;

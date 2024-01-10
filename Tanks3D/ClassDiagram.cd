@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="MouseAndKeys" Collapsed="true">
+    <Position X="21.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CEAFAACARAAABQAAAAAAABQASAAAAAwAAACAAgCgGAk=</HashCode>
+      <FileName>Input.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gamepads" Collapsed="true">
+    <Position X="21.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAAAQBAAAQgEAAAAAAAAAAAQAAAAAAAAAg=</HashCode>
+      <FileName>Input.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Singleton&lt;T&gt;" Collapsed="true">
+    <Position X="3.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAACAAAAAAAAAAAEAAAAgAAAQAAA=</HashCode>
+      <FileName>Singleton.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinUtil" Collapsed="true">
+    <Position X="17.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ICAAAACEEAAIBBhCYAAAAIRAAAAAAAAIAAAhAAAEAAI=</HashCode>
+      <FileName>WindowUtils.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="D3D" Collapsed="true">
+    <Position X="19.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QKAAAYAACMgEoIAKYIABABANgCIQEApIAAQAYBAAQAk=</HashCode>
+      <FileName>D3D.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameObject">
+    <Position X="11.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQAAAAEAAAAAQAAEAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>GameObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameObject3D">
+    <Position X="10" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACCAIQAAAAAAAAAAQAAAAAAAIBgAAAAAAAA=</HashCode>
+      <FileName>GameObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameObject2D">
+    <Position X="13.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQAAAAAACCAEQAAQAAAAAAAAQAAAAAAIBAAAAAAAAA=</HashCode>
+      <FileName>GameObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Animate" Collapsed="true">
+    <Position X="16" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAEAgAAAAQEAAEAAQAAAAAAAAAgAEiAAAAACA=</HashCode>
+      <FileName>Sprite.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sprite" Collapsed="true">
+    <Position X="17.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>mACAAABABQCAAwAQEACAAAiiAABAkAAQIAIgIAAAAAg=</HashCode>
+      <FileName>Sprite.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TexCache" Collapsed="true">
+    <Position X="16" Y="3.5" Width="1.5" />
+    <NestedTypes>
+      <Struct Name="TexCache::Data" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>TexCache.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Typedef Name="TexCache::MyMap" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>TexCache.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>CAAEAEAAAAAAAABAAAAAAAAAAAAAAAQAAAAAABAAAog=</HashCode>
+      <FileName>TexCache.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubMesh" Collapsed="true">
+    <Position X="21.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAQAAAAAAABAACAAAAAAAAACAABBAAAA=</HashCode>
+      <FileName>Mesh.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mesh" Collapsed="true">
+    <Position X="16" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAEAAAAAAgAAAAAAAAAAAAAAAQggABACAAQ=</HashCode>
+      <FileName>Mesh.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MeshMgr" Collapsed="true">
+    <Position X="17.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAABAAAAAAAAAAAAAAAAAgAAAAAAABEAAAA=</HashCode>
+      <FileName>Mesh.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model" Collapsed="true">
+    <Position X="19.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAFDCBAQAAAAAAAAAEAAAACAAAIAAgAAACAgA=</HashCode>
+      <FileName>Model.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Button" Collapsed="true">
+    <Position X="17.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAACAAAQAAAAA=</HashCode>
+      <FileName>Button.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="State">
+    <Position X="7.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQgAAAAAAAAAQAAAAAAAAAAAAAAAAAQIBAAABgEAAA=</HashCode>
+      <FileName>State.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StateMachine" Collapsed="true">
+    <Position X="19.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAQgJAAAAAAAAFAAAAgAAAAAAACAAABAAAAAFAACAA=</HashCode>
+      <FileName>StateMachine.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Game" Collapsed="true">
+    <Position X="3.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAABAAAAQAAAAAAAAAAAAiAAAAAIBAAABAAAAA=</HashCode>
+      <FileName>Game.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tank">
+    <Position X="9" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgEAECAARAQiAAAAICAAAEKCAAgQAQBAEAAIAAAI=</HashCode>
+      <FileName>Tank.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bullet">
+    <Position X="11.25" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAoACAAAAQAQAAAAAAAAAAAACAAQQAAAAAAAAAAAA=</HashCode>
+      <FileName>Bullet.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameState">
+    <Position X="4" Y="4.25" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="GameState::Modelid" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>GameState.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Struct Name="GameState::LoadData" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>GameState.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAQAgAAABIACAQAAAAAIAAAAAAgAAAAAIBAAABAgIAA=</HashCode>
+      <FileName>GameState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SplashState">
+    <Position X="6.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQBAAAABBAAAQAgAAAAAAAAAQAAAAAAIBBAQBAgAAA=</HashCode>
+      <FileName>SplashState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PauseState">
+    <Position X="8.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AASAAAAABAAAAQEAAAAIAAEAAQAAAAAAIBAAABAAAAA=</HashCode>
+      <FileName>PauseState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuState">
+    <Position X="10.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAABAAAAQEAAgAAAAEAAQAAAAAAIBABABAAAAA=</HashCode>
+      <FileName>MenuState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FX::MyFX" Collapsed="true">
+    <Position X="16" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IBABiAIAAAEAAAgSAAAAgBAEADASiAhAjRACABBgBAQ=</HashCode>
+      <FileName>FX.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Collisions::BoundingBox" Collapsed="true">
+    <Position X="17.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAQAAAAAAAAAIAAACCAAAAAAAAABACAAAA=</HashCode>
+      <FileName>Collision.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Collisions::BoundingSphere" Collapsed="true">
+    <Position X="19.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAAAIAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Collision.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Timer" Collapsed="true">
+    <Position X="19.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAACCAAAAAAAkEAAAAAEIAoEAAIAQAgAAAiAEAAA=</HashCode>
+      <FileName>Timer.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="VertexPosNormTex" Collapsed="true">
+    <Position X="21.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAACAgAAAAAAAAQAAAAA=</HashCode>
+      <FileName>ShaderTypes.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="BasicMaterial" Collapsed="true">
+    <Position X="16" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAJAAAAgAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>ShaderTypes.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Material" Collapsed="true">
+    <Position X="16" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAQgAAAAAAAgAAAAAACAAAAEAgAAAIIAAAAAAAQ=</HashCode>
+      <FileName>ShaderTypes.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Light" Collapsed="true">
+    <Position X="21.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAIAAACAAAgAiAAAgAAAAABAEAAAAAAAUAAAAA=</HashCode>
+      <FileName>ShaderTypes.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="GfxParamsPerFrame" Collapsed="true">
+    <Position X="16" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>ShaderTypes.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="GfxParamsPerObj" Collapsed="true">
+    <Position X="19.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAEAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ShaderTypes.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="GfxParamsPerMesh" Collapsed="true">
+    <Position X="17.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>ShaderTypes.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="RECTF" Collapsed="true">
+    <Position X="17.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAgAAAAJAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>TexCache.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="GameData" Collapsed="true">
+    <Position X="21.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Game.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Typedef Name="StateRef" Collapsed="true">
+    <Position X="17.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>StateMachine.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GameDataRef" Collapsed="true">
+    <Position X="16" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Game.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Enum Name="FX::RasterType::__unnamed_enum_0415_1" Collapsed="true">
+    <Position X="16" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAgggAAAAAAABAACAAAAAA=</HashCode>
+      <FileName>FX.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

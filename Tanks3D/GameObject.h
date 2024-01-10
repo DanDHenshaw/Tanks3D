@@ -13,6 +13,7 @@ public:
 
 	virtual void Update(float dTime) = 0;
 	virtual void Render(D3D& d3d, float dTime) = 0;
+  virtual void Draw(DirectX::SpriteBatch& batch) = 0;
 
 	virtual void Initialise(D3D& d3d, std::string fileName) = 0;
 
@@ -31,15 +32,16 @@ public:
 	* name - name of the model
 	* filename - path to the model file
 	*/
-	GameObject3D(D3D& d3d, std::string name, std::string fileName);
+	GameObject3D(D3D& d3d, std::string name, std::string fileName, bool isActive = true);
 	/*
 	* mesh constructor
 	* mesh - the mesh used to initialise the model
 	*/
-	GameObject3D(D3D& d3d, Mesh& mesh);
+	GameObject3D(D3D& d3d, Mesh& mesh, bool isActive = true);
 
 	virtual void Update(float dTime) override;
 	virtual void Render(D3D& d3d, float dTime) override;
+  virtual void Draw(DirectX::SpriteBatch& batch) override;
 
 	Model& GetModel() { return mModel; }
 
@@ -62,18 +64,22 @@ public:
 	* filename - path to the texture file
 	* batch - the spritebatch used to render the sprite
 	*/
-	GameObject2D(D3D& d3d, std::string fileName, DirectX::SpriteBatch* batch);
+	GameObject2D(D3D& d3d, std::string fileName);
 
 	virtual void Update(float dTime) override;
-	void Render(D3D& d3d, float dTime) override;
+  virtual void Render(D3D& d3d, float dTime) override;
+  virtual void Draw(DirectX::SpriteBatch& batch) override;
+
+  Sprite& GetSprite() { return mSprite; }
 
 	DirectX::SimpleMath::Vector2& GetPosition() { return mSprite.mPos; }
 	float& GetRotation() { return mSprite.rotation; }
 	DirectX::SimpleMath::Vector2& GetScale() { return mSprite.GetScale(); }
+
+public:
+  virtual void Initialise(DirectX::SimpleMath::Vector2 pos);
 private:
 	virtual void Initialise(D3D& d3d, std::string fileName) override;
 private:
 	Sprite mSprite;
-
-	DirectX::SpriteBatch* mBatch;
 };

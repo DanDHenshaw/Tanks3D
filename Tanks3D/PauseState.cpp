@@ -10,22 +10,9 @@ using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
 PauseState::PauseState(GameDataRef data)
-  : _data(data), pLogo(WinUtil::Get().GetD3D()), pResume(WinUtil::Get().GetD3D()), pExit(WinUtil::Get().GetD3D())
+  : _data(data), pLogo(WinUtil::Get().GetD3D(), "logo.dds"), pResume(WinUtil::Get().GetD3D(), "pause/resume.dds"), pExit(WinUtil::Get().GetD3D(), "menu/quit.dds")
 
 {
-}
-
-void InitialiseSprite(D3D& d3d, Sprite& spr, std::string file, Vector2 origin, Vector2 pos)
-{
-  // Load texture play button
-  spr.SetTex(*d3d.GetCache().LoadTexture(&d3d.GetDevice(), file));
-  spr.GetScale() = Vector2(1, 1);
-
-  spr.origin = origin;
-
-  spr.mPos = pos;
-
-  spr.rotation = 0;
 }
 
 void PauseState::Initialise()
@@ -38,9 +25,9 @@ void PauseState::Initialise()
   int w, h;
   WinUtil::Get().GetClientExtents(w, h);
 
-  pLogo.Initialise("logo.dds", Vector2(w / 2, h / 4.5f));
-  pResume.sprite.Initialise("pause/resume.dds", Vector2(w / 2, h / 2.25f));
-  pExit.sprite.Initialise("menu/quit.dds", Vector2(w / 2, h / 1.5f));
+  pLogo.Initialise(Vector2(w / 2, h / 4.5f));
+  pResume.Initialise(Vector2(w / 2, h / 2.25f));
+  pExit.Initialise(Vector2(w / 2, h / 1.5f));
 }
 
 void PauseState::Update(float dTime)
@@ -84,8 +71,8 @@ void PauseState::Render(float dTime)
   mBatch->Begin(SpriteSortMode_Deferred, dxstate.NonPremultiplied(), &d3d.GetWrapSampler());
 
   pLogo.Draw(*mBatch);
-  pResume.sprite.Draw(*mBatch);
-  pExit.sprite.Draw(*mBatch);
+  pResume.Draw(*mBatch);
+  pExit.Draw(*mBatch);
 
   mBatch->End();
 

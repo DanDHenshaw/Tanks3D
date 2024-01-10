@@ -5,6 +5,7 @@
 #include "SpriteFont.h"
 #include "State.h"
 #include "Button.h"
+#include "GameObject.h"
 
 // Inherits the State class from 'State.h'
 class MenuState : public State
@@ -24,7 +25,7 @@ private:
 
   DirectX::SpriteBatch* mBatch = nullptr;
 
-  Sprite pLogo;
+  GameObject2D pLogo;
 
   Button pPlay;
   Button pExit;

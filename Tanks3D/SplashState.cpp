@@ -10,7 +10,7 @@ using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
 SplashState::SplashState(GameDataRef data)
-	: _data(data), mLogo(WinUtil::Get().GetD3D())
+	: _data(data), mLogo(WinUtil::Get().GetD3D(), "splash/company_logo.dds")
 {
 }
 
@@ -21,19 +21,18 @@ void SplashState::Initialise()
 	// Initialise a new sprite batch
 	mBatch = new SpriteBatch(&d3d.GetDeviceCtx());
 
-	// Load texture and set its alpha to 0
-	mLogo.SetTex(*d3d.GetCache().LoadTexture(&d3d.GetDevice(), "splash/company_logo.dds"));
-	mLogo.colour.w = 0;
+	// set its alpha to 0
+	mLogo.GetSprite().colour.w = 0;
 	mLogo.GetScale() = Vector2(1, 1);
 
-	mLogo.origin = Vector2(512 / 2, 512 / 2);
+	mLogo.GetSprite().origin = Vector2(512 / 2, 512 / 2);
 
 	// Places logo in the center of the screen
 	int w, h;
 	WinUtil::Get().GetClientExtents(w, h);
-	mLogo.mPos = Vector2(w / 2, h / 2);
+	mLogo.GetPosition() = Vector2(w / 2, h / 2);
 
-	mLogo.rotation = 0;
+	mLogo.GetRotation() = 0;
 }
 
 void SplashState::Update(float dTime)
@@ -43,7 +42,7 @@ void SplashState::Update(float dTime)
 	if (mElapsedTime > mShowtime)
 	{
 		// Fades the logo out and once faded transition to the MenuState
-		if(mLogo.FadeOut(dTime, mShowtime / 2))
+		if(mLogo.GetSprite().FadeOut(dTime, mShowtime / 2))
 			// Swap from SplashState to MenuState.
 			_data->machine.AddState(StateRef(std::make_unique<MenuState>(_data)), true);
 
@@ -51,7 +50,7 @@ void SplashState::Update(float dTime)
 	}
 
 	// Fades the logo in
-	mLogo.FadeIn(dTime, mShowtime / 2);
+	mLogo.GetSprite().FadeIn(dTime, mShowtime / 2);
 }
 
 void SplashState::Render(float dTime)

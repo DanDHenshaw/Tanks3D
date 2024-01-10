@@ -2,17 +2,19 @@
 
 #include "Sprite.h"
 
-class Button
+#include "GameObject.h"
+
+class Button : public GameObject2D
 {
 public:
-  Button::Button(D3D& d3d);
+  using GameObject2D::GameObject2D;
 
   bool IsMouseOverButton(DirectX::SimpleMath::Vector2 mousePos);
 
   void ButtonHover(bool isHovering);
 
-public:
-  Sprite sprite;
+  virtual void Initialise(DirectX::SimpleMath::Vector2 pos) override;
 
+public:
   DirectX::SimpleMath::Vector2 ogScale;
 };

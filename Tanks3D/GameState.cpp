@@ -43,7 +43,7 @@ void GameState::Load()
   p1.GetScale() = Vector3(.15f, .15f, .15f);
   p1.GetPosition() = Vector3(-2, ground.GetPosition().x, 0);
   p1.GetRotation() = Vector3(PI / 2, PI / 2, 0);
-  p1.Initialise(VK_W, VK_S, VK_A, VK_D);
+  p1.Initialise(VK_W, VK_S, VK_A, VK_D, VK_SPACE);
   // Loads the tank1.dds texture file into the material
   mat.texTrsfm.scale = Vector2(1);
   mat.pTextureRV = d3d.GetCache().LoadTexture(&d3d.GetDevice(), "game/tank/tank1.dds");
@@ -53,12 +53,21 @@ void GameState::Load()
   mGameObjects[Modelid::PLAYER1] = &p1;
   mLoadData.loadedSoFar++;
 
+  p1.bullet = new Bullet(d3d, "bullet", "game/bullet/bullet.fbx", false);
+  p1.bullet->GetScale() = Vector3(0.075f, 0.075f, 0.075f);
+  mat.pTextureRV = d3d.GetCache().LoadTexture(&d3d.GetDevice(), "game/bullet/bluebullet.dds");
+  mat.texture = "game/bullet/bluebullet.dds";
+  // Replaces the previous material with the new one
+  p1.bullet->GetModel().SetOverrideMat(&mat);
+  mGameObjects[Modelid::BULLET1] = p1.bullet;
+  mLoadData.loadedSoFar++;
+
   // Initialises a second tank object by copying the p1 tank to p2
   Tank p2 = p1;
   p2.GetScale() = Vector3(.15f, .15f, .15f);
   p2.GetPosition() = Vector3(2, ground.GetPosition().x, 0);
   p2.GetRotation() = Vector3(PI / 2, -PI / 2, 0);
-  p2.Initialise(VK_UP, VK_DOWN, VK_LEFT, VK_RIGHT);
+  p2.Initialise(VK_UP, VK_DOWN, VK_LEFT, VK_RIGHT, VK_RCONTROL);
   // Loads the tank2.dds texture file into the material
   mat.texTrsfm.scale = Vector2 (1);
   mat.pTextureRV = d3d.GetCache().LoadTexture(&d3d.GetDevice(), "game/tank/tank2.dds");
@@ -66,6 +75,15 @@ void GameState::Load()
   // Replaces the previous material with the new one
   p2.GetModel().SetOverrideMat(&mat);
   mGameObjects[Modelid::PLAYER2] = &p2;
+  mLoadData.loadedSoFar++;
+
+  p2.bullet = new Bullet(d3d, p1.bullet->GetModel().GetMesh(), false);
+  p2.bullet->GetScale() = Vector3(0.075f, 0.075f, 0.075f);
+  mat.pTextureRV = d3d.GetCache().LoadTexture(&d3d.GetDevice(), "game/bullet/redbullet.dds");
+  mat.texture = "game/bullet/redbullet.dds";
+  // Replaces the previous material with the new one
+  p2.bullet->GetModel().SetOverrideMat(&mat);
+  mGameObjects[Modelid::BULLET2] = p2.bullet;
   mLoadData.loadedSoFar++;
 
   d3d.GetFX().SetupDirectionalLight(0, true, Vector3(-1.4f, -1.4f, 1.4f), Vector3(0.47f, 0.47f, 0.47f), Vector3(0.15f, 0.15f, 0.15f), Vector3(0.25f, 0.25f, 0.25f));
@@ -112,11 +130,9 @@ void GameState::Update(float dTime)
   Tank* p1;
   // Attempts to cast the tank from GameObject to Tank object
   if(p1 = dynamic_cast<Tank*>(mGameObjects[Modelid::PLAYER1]));
-    //p1->Input(input, dTime);
 
   Tank* p2;
   if(p2 = dynamic_cast<Tank*>(mGameObjects[Modelid::PLAYER2]));
-    //p2->Input(input, dTime);
 
   if(Collisions::PointInsideSphere(p1->GetForwardPoint(), p2->GetBoundingSphere()))
   {

@@ -21,7 +21,7 @@ public:
 	void Release() override;
 
 	std::vector<GameObject*> mGameObjects;
-	enum Modelid { FLOOR, PLAYER1, PLAYER2, TOTAL = 3 };
+	enum Modelid { FLOOR, PLAYER1, BULLET1, PLAYER2, BULLET2, TOTAL = 5 };
 
 private:
 	// Reference to GameData.

@@ -4,6 +4,8 @@
 #include "Sprite.h"
 #include "State.h"
 
+#include "GameObject.h"
+
 // Inherits the State class from 'State.h'
 class SplashState : public State
 {
@@ -26,7 +28,7 @@ private:
 
 	DirectX::SpriteBatch* mBatch = nullptr;
 
-	Sprite mLogo;
+	GameObject2D mLogo;
 	DirectX::SimpleMath::Vector4 mLogoColor;
 	float mLogoAlpha = 0;
 };
