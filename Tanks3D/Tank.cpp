@@ -5,9 +5,23 @@ using namespace DirectX::SimpleMath;
 
 void Tank::Update(float dTime)
 {
-	if (!IsActive()) return;
-
 	GameObject3D::Update(dTime);
+
+  if (is_shot)
+  {
+    bullet->Update(dTime);
+
+    shoot_cooldown += dTime;
+    if (dTime >= cooldown)
+    {
+      shoot_cooldown = 0.0f;
+      is_shot = false;
+
+      bullet->IsActive() = false;
+    }
+  }
+
+  if (!IsActive()) return;
 
 	collision.UpdatePos(GetPosition());
 
@@ -22,8 +36,12 @@ void Tank::Update(float dTime)
 	bwdPoint.z -= 0.5f * sin(angle);
 }
 
-void Tank::Initialise(unsigned short up, unsigned short down, unsigned short left, unsigned short right)
+void Tank::Initialise(unsigned short up, unsigned short down, unsigned short left, unsigned short right, unsigned short shoot)
 {
+  // Shooting
+  cooldown = 1.0f;
+  shooting = shoot;
+  
 	// Collision box
 	collision.radius = GetScale().z * 2.8f;
 
@@ -44,6 +62,21 @@ void Tank::Initialise(unsigned short up, unsigned short down, unsigned short lef
 
 void Tank::Input(MouseAndKeys& input, float dTime, bool canUp, bool canDown)
 {
+  // Shooting
+  if (input.IsPressed(shooting))
+  {
+    if (!is_shot)
+    {
+      is_shot = true;
+
+      Vector3 bulletRot = GetRotation();
+      bulletRot.x += PI / 2;
+      bullet->Initialise(fwdPoint, bulletRot);
+
+      bullet->IsActive() = true;
+    }
+  }
+
 	if (!IsActive()) return;
 
 	// Checks if any of the input keys are pressed
@@ -91,7 +124,8 @@ void Tank::Input(MouseAndKeys& input, float dTime, bool canUp, bool canDown)
 			pos.x += acceleration * cos(angle);
 			// Remove acceleration * sin(angle) from the position z
 			pos.z -= acceleration * sin(angle);
-		} else
+		} 
+    else
 		{
 			// If no input then set acceleration to 0
 			acceleration = 0.0f;
