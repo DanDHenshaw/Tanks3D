@@ -45,6 +45,7 @@ void StateMachine::ProcessStateChanges()
 			{
         if (_isReplacingAll) 
         {
+          _isReplacingAll = false;
           while (!_states.empty())
           {
             _states.top()->Release();
@@ -54,6 +55,7 @@ void StateMachine::ProcessStateChanges()
         else 
         {
           // if state is added and states isnt empty and current state is getting replaced then remove the current state
+          _isReplacing = false;
           _states.top()->Release();
           _states.pop();
         }

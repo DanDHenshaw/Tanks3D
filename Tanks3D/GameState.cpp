@@ -28,7 +28,7 @@ void GameState::Load()
   //ground model
   // Initialises a game object 3d with a ground.fbx file
   GameObject3D ground(d3d, "ground", "game/ground/ground.fbx");
-  ground.GetScale() = Vector3(10);
+  ground.GetScale() = Vector3(25);
   ground.GetPosition() = Vector3(0, 0, 0);
   ground.GetRotation() = Vector3(PI / 2, 0, 0);
   Material mat = ground.GetModel().GetMesh().GetSubMesh(0).material;
