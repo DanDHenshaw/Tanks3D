@@ -48,7 +48,7 @@ private:
   // Shooting Variables
   unsigned short shooting = VK_SPACE;
   float shoot_cooldown = 0.0f;
-  float cooldown = 1.0f;
+  float cooldown = 3.0f;
   bool is_shot = false;
 
 	float acceleration;

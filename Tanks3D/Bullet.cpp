@@ -6,12 +6,12 @@ using namespace DirectX::SimpleMath;
 void Bullet::Initialise(Vector3 pos, Vector3 rot)
 {
   GetPosition() = pos;
-  GetPosition().y += 0.5f;
+  GetPosition().y += 0.4f;
   GetRotation() = rot;
 
   // Movement
   acceleration = 0.0f;
-  accel_ot = 1.0f;
+  accel_ot = 10.0f;
 
   speed = 1.0f;
 }
@@ -42,6 +42,6 @@ void Bullet::Update(float dTime)
 
   // Gets the rotation + 90 degrees to account for the models rotation
   point = GetPosition();
-  point.x -= 0.5f * cos(angle);
-  point.z += 0.5f * sin(angle);
+  point.x -= 0.25f * cos(angle);
+  point.z += 0.25f * sin(angle);
 }

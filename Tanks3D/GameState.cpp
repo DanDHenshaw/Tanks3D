@@ -7,6 +7,7 @@
 #include "PauseState.h"
 #include "WindowUtils.h"
 #include "Tank.h"
+#include "MenuState.h"
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
@@ -37,12 +38,15 @@ void GameState::Load()
   mGameObjects[Modelid::FLOOR] = &ground;
   mLoadData.loadedSoFar++;
 
+  p1StartPos = Vector3(-2, ground.GetPosition().x, 0);
+  p2StartPos = Vector3(2, ground.GetPosition().x, 0);
+
   //tank models
   // Initialises a tank object with a tank.fbx file
   Tank p1(d3d, "tank", "game/tank/tank.fbx");
   p1.GetScale() = Vector3(.15f, .15f, .15f);
-  p1.GetPosition() = Vector3(-2, ground.GetPosition().x, 0);
-  p1.GetRotation() = Vector3(PI / 2, PI / 2, 0);
+  p1.GetPosition() = p1StartPos;
+  p1.GetRotation() = p1StartRot;
   p1.Initialise(VK_W, VK_S, VK_A, VK_D, VK_SPACE);
   // Loads the tank1.dds texture file into the material
   mat.texTrsfm.scale = Vector2(1);
@@ -54,7 +58,7 @@ void GameState::Load()
   mLoadData.loadedSoFar++;
 
   p1.bullet = new Bullet(d3d, "bullet", "game/bullet/bullet.fbx", false);
-  p1.bullet->GetScale() = Vector3(0.075f, 0.075f, 0.075f);
+  p1.bullet->GetScale() = Vector3(0.0375f, 0.0375f, 0.0375f);
   mat.pTextureRV = d3d.GetCache().LoadTexture(&d3d.GetDevice(), "game/bullet/bluebullet.dds");
   mat.texture = "game/bullet/bluebullet.dds";
   // Replaces the previous material with the new one
@@ -65,8 +69,8 @@ void GameState::Load()
   // Initialises a second tank object by copying the p1 tank to p2
   Tank p2 = p1;
   p2.GetScale() = Vector3(.15f, .15f, .15f);
-  p2.GetPosition() = Vector3(2, ground.GetPosition().x, 0);
-  p2.GetRotation() = Vector3(PI / 2, -PI / 2, 0);
+  p2.GetPosition() = p2StartPos;
+  p2.GetRotation() = p2StartRot;
   p2.Initialise(VK_UP, VK_DOWN, VK_LEFT, VK_RIGHT, VK_RCONTROL);
   // Loads the tank2.dds texture file into the material
   mat.texTrsfm.scale = Vector2 (1);
@@ -78,7 +82,7 @@ void GameState::Load()
   mLoadData.loadedSoFar++;
 
   p2.bullet = new Bullet(d3d, p1.bullet->GetModel().GetMesh(), false);
-  p2.bullet->GetScale() = Vector3(0.075f, 0.075f, 0.075f);
+  p2.bullet->GetScale() = Vector3(0.0375f, 0.0375f, 0.0375f);
   mat.pTextureRV = d3d.GetCache().LoadTexture(&d3d.GetDevice(), "game/bullet/redbullet.dds");
   mat.texture = "game/bullet/redbullet.dds";
   // Replaces the previous material with the new one
@@ -121,18 +125,68 @@ void GameState::Update(float dTime)
     mLoadData.running = false;
     return;
   }
+  
+  Tank* p1;
+  Bullet* b1;
+  // Attempts to cast the tank from GameObject to Tank object
+  if (p1 = dynamic_cast<Tank*>(mGameObjects[Modelid::PLAYER1]));
+  if (b1 = dynamic_cast<Bullet*>(mGameObjects[Modelid::BULLET1]));
 
-  for(int i = 0; i < mGameObjects.size(); i++)
+  Tank* p2;
+  Bullet* b2;
+  if (p2 = dynamic_cast<Tank*>(mGameObjects[Modelid::PLAYER2]));
+  if (b2 = dynamic_cast<Bullet*>(mGameObjects[Modelid::BULLET2]));
+
+  if (playerScored)
+  {
+    if (p1Score >= maxScore) 
+    {
+      _data->machine.AddState(StateRef(std::make_unique<MenuState>(_data)), true);
+      playerScored = false;
+    }
+
+    if (p2Score >= maxScore)
+    {
+      _data->machine.AddState(StateRef(std::make_unique<MenuState>(_data)), true);
+      playerScored = false;
+    }
+
+    elapsedRoundCooldown += dTime;
+
+    if (elapsedRoundCooldown > roundCooldown)
+    {
+      p1->IsActive() = true;
+      p2->IsActive() = true;
+
+      p1->GetPosition() = p1StartPos;
+      p2->GetPosition() = p2StartPos;
+
+      p1->GetRotation() = p1StartRot;
+      p2->GetRotation() = p2StartRot;
+
+      elapsedRoundCooldown = 0.0f;
+      playerScored = false;
+    }
+  }
+
+  for (int i = 0; i < mGameObjects.size(); i++)
   {
     mGameObjects[i]->Update(dTime);
   }
-  
-  Tank* p1;
-  // Attempts to cast the tank from GameObject to Tank object
-  if(p1 = dynamic_cast<Tank*>(mGameObjects[Modelid::PLAYER1]));
 
-  Tank* p2;
-  if(p2 = dynamic_cast<Tank*>(mGameObjects[Modelid::PLAYER2]));
+  if (b1->IsActive() && p2->IsActive() && Collisions::PointInsideSphere(b1->GetPoint(), p2->GetBoundingSphere()))
+  {
+    p2->IsActive() = false;
+    p1Score++;
+    playerScored = true;
+  }
+
+  if (b2->IsActive() && p1->IsActive() && Collisions::PointInsideSphere(b2->GetPoint(), p1->GetBoundingSphere()))
+  {
+    p1->IsActive() = false;
+    p2Score++;
+    playerScored = true;
+  }
 
   if(Collisions::PointInsideSphere(p1->GetForwardPoint(), p2->GetBoundingSphere()))
   {
@@ -179,6 +233,12 @@ void GameState::Render(float dTime)
   D3D& d3d = WinUtil::Get().GetD3D();
   d3d.BeginRender(Colours::Black);
 
+  pFontBatch->Begin();
+
+  std::wstringstream ss;
+  ss << p1Score << " : " << p2Score;
+  pFont->DrawString(pFontBatch, ss.str().c_str(), Vector2(WinUtil::Get().GetClientWidth() / 2, 25), Colours::White, 0, pFont->MeasureString(ss.str().c_str()) / 2, Vector2(1.5f, 1.5f));
+
   float alpha = 0.5f + sinf(gAngle * 2) * 0.5f;
 
   d3d.GetFX().SetPerFrameConsts(d3d.GetDeviceCtx(), mCamPos);
@@ -191,6 +251,8 @@ void GameState::Render(float dTime)
   // Renders the gameobjects inside the vector of objects
   for (GameObject*& obj : mGameObjects)
     obj->Render(d3d, dTime);
+
+  pFontBatch->End();
 
   d3d.EndRender();
 }

@@ -6,13 +6,14 @@ using namespace DirectX::SimpleMath;
 void Tank::Update(float dTime)
 {
 	GameObject3D::Update(dTime);
+  if (!IsActive()) return;
 
   if (is_shot)
   {
     bullet->Update(dTime);
 
     shoot_cooldown += dTime;
-    if (dTime >= cooldown)
+    if (shoot_cooldown > cooldown)
     {
       shoot_cooldown = 0.0f;
       is_shot = false;
@@ -20,8 +21,6 @@ void Tank::Update(float dTime)
       bullet->IsActive() = false;
     }
   }
-
-  if (!IsActive()) return;
 
 	collision.UpdatePos(GetPosition());
 
