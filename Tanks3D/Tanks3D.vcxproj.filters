@@ -63,6 +63,9 @@
     <Filter Include="Source Files\Game\Objects\Bullet">
       <UniqueIdentifier>{70f77628-9f5c-4b99-8e88-3d812c0d6890}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Game\State\WinState">
+      <UniqueIdentifier>{132d71c7-83c1-4a64-a6e1-58b6904e1c15}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowUtils.cpp">
@@ -140,6 +143,9 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Source Files\Game\Objects\Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="WinState.cpp">
+      <Filter>Source Files\Game\State\WinState</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowUtils.h">
@@ -213,6 +219,9 @@
     </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>Source Files\Game\Objects\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="WinState.h">
+      <Filter>Source Files\Game\State\WinState</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

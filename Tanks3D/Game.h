@@ -18,6 +18,7 @@ struct GameData
 {
 	StateMachine machine;
   MouseAndKeys input; // Input
+  bool isP1Winner;
 };
 
 typedef std::shared_ptr<GameData> GameDataRef;

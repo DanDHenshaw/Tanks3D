@@ -80,7 +80,6 @@ public:
 
 public:
   virtual void Initialise(DirectX::SimpleMath::Vector2 pos);
-private:
 	virtual void Initialise(D3D& d3d, std::string fileName) override;
 private:
 	Sprite mSprite;

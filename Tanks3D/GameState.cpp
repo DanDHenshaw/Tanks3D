@@ -7,7 +7,7 @@
 #include "PauseState.h"
 #include "WindowUtils.h"
 #include "Tank.h"
-#include "MenuState.h"
+#include "WinState.h"
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
@@ -141,13 +141,15 @@ void GameState::Update(float dTime)
   {
     if (p1Score >= maxScore) 
     {
-      _data->machine.AddState(StateRef(std::make_unique<MenuState>(_data)), true);
+      _data->isP1Winner = true;
+      _data->machine.AddState(StateRef(std::make_unique<WinState>(_data)), true);
       playerScored = false;
     }
 
     if (p2Score >= maxScore)
     {
-      _data->machine.AddState(StateRef(std::make_unique<MenuState>(_data)), true);
+      _data->isP1Winner = false;
+      _data->machine.AddState(StateRef(std::make_unique<WinState>(_data)), true);
       playerScored = false;
     }
 
