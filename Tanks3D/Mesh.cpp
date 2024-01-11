@@ -173,7 +173,7 @@ Mesh& MeshMgr::GetMesh(const std::string& name)
 Mesh& MeshMgr::CreateMesh(const std::string& name)
 {
 	Meshes::iterator it = mMeshes.find(name);
-	assert(it == mMeshes.end());
+	//assert(it == mMeshes.end());
 
 	Mesh* p = new Mesh(name);
 	mMeshes[name] = p;

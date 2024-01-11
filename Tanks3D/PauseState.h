@@ -26,8 +26,10 @@ private:
 
   DirectX::SpriteBatch* mBatch = nullptr;
 
+  GameObject2D pBackground;
   GameObject2D pLogo;
 
   Button pResume;
+  Button pMenu;
   Button pExit;
 };

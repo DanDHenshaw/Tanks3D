@@ -31,11 +31,13 @@ public:
 	* file constructor
 	* name - name of the model
 	* filename - path to the model file
+  * isActive - whether the object is active on load
 	*/
 	GameObject3D(D3D& d3d, std::string name, std::string fileName, bool isActive = true);
 	/*
 	* mesh constructor
 	* mesh - the mesh used to initialise the model
+  * isActive - whether the object is active on load
 	*/
 	GameObject3D(D3D& d3d, Mesh& mesh, bool isActive = true);
 

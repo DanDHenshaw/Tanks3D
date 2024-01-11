@@ -10,7 +10,7 @@ using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
 PauseState::PauseState(GameDataRef data)
-  : _data(data), pLogo(WinUtil::Get().GetD3D(), "logo.dds"), pResume(WinUtil::Get().GetD3D(), "pause/resume.dds"), pExit(WinUtil::Get().GetD3D(), "menu/quit.dds")
+  : _data(data), pBackground(WinUtil::Get().GetD3D(), "game/ground/stony_dirt_path_diff_1k.dds"), pLogo(WinUtil::Get().GetD3D(), "logo.dds"), pResume(WinUtil::Get().GetD3D(), "pause/resume.dds"), pMenu(WinUtil::Get().GetD3D(), "pause/menu.dds"), pExit(WinUtil::Get().GetD3D(), "menu/quit.dds")
 
 {
 }
@@ -25,9 +25,11 @@ void PauseState::Initialise()
   int w, h;
   WinUtil::Get().GetClientExtents(w, h);
 
+  pBackground.Initialise(Vector2(w / 2, h / 2));
   pLogo.Initialise(Vector2(w / 2, h / 4.5f));
   pResume.Initialise(Vector2(w / 2, h / 2.25f));
-  pExit.Initialise(Vector2(w / 2, h / 1.5f));
+  pMenu.Initialise(Vector2(w / 2, h / 1.5f));
+  pExit.Initialise(Vector2(w / 2, h / 1.225f));
 }
 
 void PauseState::Update(float dTime)
@@ -44,6 +46,20 @@ void PauseState::Update(float dTime)
   else
   {
     pResume.ButtonHover(false);
+  }
+
+  if (pMenu.IsMouseOverButton(_data->input.GetMousePos(true)))
+  {
+    pMenu.ButtonHover(true);
+
+    if (_data->input.GetMouseButton(MouseAndKeys::ButtonT::LBUTTON))
+    {
+      _data->machine.AddState(StateRef(std::make_unique<MenuState>(_data)), true, true);
+    }
+  }
+  else
+  {
+    pMenu.ButtonHover(false);
   }
 
   if (pExit.IsMouseOverButton(_data->input.GetMousePos(true)))
@@ -70,8 +86,10 @@ void PauseState::Render(float dTime)
   CommonStates dxstate(&d3d.GetDevice());
   mBatch->Begin(SpriteSortMode_Deferred, dxstate.NonPremultiplied(), &d3d.GetWrapSampler());
 
+  pBackground.Draw(*mBatch);
   pLogo.Draw(*mBatch);
   pResume.Draw(*mBatch);
+  pMenu.Draw(*mBatch);
   pExit.Draw(*mBatch);
 
   mBatch->End();

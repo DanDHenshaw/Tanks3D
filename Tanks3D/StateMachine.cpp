@@ -1,12 +1,13 @@
 #include "StateMachine.h"
 
-void StateMachine::AddState(StateRef newState, bool isReplacing)
+void StateMachine::AddState(StateRef newState, bool isReplacing, bool isReplacingAll)
 {
 	// If state machine is closing then dont add state
 	if (_isClosing) return;
 
 	_isAdding = true;
 	_isReplacing = isReplacing;
+  _isReplacingAll = isReplacingAll;
 
 	_newState = std::move(newState);
 }
@@ -24,6 +25,7 @@ void StateMachine::ProcessStateChanges()
 	if (_isRemoving && !_states.empty())
 	{
 		// Removes current state from stack
+    _states.top()->Release();
 		_states.pop();
 
 		if (!_states.empty())
@@ -41,8 +43,20 @@ void StateMachine::ProcessStateChanges()
 		{
 			if (_isReplacing)
 			{
-				// if state is added and states isnt empty and current state is getting replaced then remove the current state
-				_states.pop();
+        if (_isReplacingAll) 
+        {
+          while (!_states.empty())
+          {
+            _states.top()->Release();
+            _states.pop();
+          }
+        }
+        else 
+        {
+          // if state is added and states isnt empty and current state is getting replaced then remove the current state
+          _states.top()->Release();
+          _states.pop();
+        }
 			}
 			else
 			{

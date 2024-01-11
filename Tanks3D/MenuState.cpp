@@ -10,7 +10,7 @@ using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
 MenuState::MenuState(GameDataRef data)
-	: _data(data), pLogo(WinUtil::Get().GetD3D(), "logo.dds"), pPlay(WinUtil::Get().GetD3D(), "menu/play.dds"), pExit(WinUtil::Get().GetD3D(), "menu/quit.dds")
+	: _data(data), pBackground(WinUtil::Get().GetD3D(), "game/ground/stony_dirt_path_diff_1k.dds"), pLogo(WinUtil::Get().GetD3D(), "logo.dds"), pPlay(WinUtil::Get().GetD3D(), "menu/play.dds"), pExit(WinUtil::Get().GetD3D(), "menu/quit.dds")
 {
 }
 
@@ -24,6 +24,7 @@ void MenuState::Initialise()
   int w, h;
   WinUtil::Get().GetClientExtents(w, h);
 
+  pBackground.Initialise(Vector2(w / 2, h / 2));
   pLogo.Initialise(Vector2(w / 2, h / 4.5f));
   pPlay.Initialise(Vector2(w / 2, h / 2.25f));
   pExit.Initialise(Vector2(w / 2, h / 1.5f));
@@ -69,6 +70,7 @@ void MenuState::Render(float dTime)
   CommonStates dxstate(&d3d.GetDevice());
   mBatch->Begin(SpriteSortMode_Deferred, dxstate.NonPremultiplied(), &d3d.GetWrapSampler());
 
+  pBackground.Draw(*mBatch);
   pLogo.Draw(*mBatch);
   pPlay.Draw(*mBatch);
   pExit.Draw(*mBatch);

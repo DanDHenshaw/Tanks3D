@@ -37,9 +37,4 @@ public:
 
 	// Release all data stored in state
 	virtual void Release() {}
-
-public:
-	// Camera
-	const DirectX::SimpleMath::Vector3 mDefCamPos = DirectX::SimpleMath::Vector3(0, 4, -10);
-	DirectX::SimpleMath::Vector3 mCamPos = DirectX::SimpleMath::Vector3(0, 4, -10);
 };

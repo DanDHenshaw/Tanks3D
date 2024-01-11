@@ -39,7 +39,7 @@ void SplashState::Update(float dTime)
 {
 	mElapsedTime += dTime;
 
-	if (mElapsedTime > mShowtime)
+	if (mElapsedTime > mShowtime / 2)
 	{
 		// Fades the logo out and once faded transition to the MenuState
 		if(mLogo.GetSprite().FadeOut(dTime, mShowtime / 2))

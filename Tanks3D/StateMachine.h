@@ -18,7 +18,7 @@ public:
 		- newState is the state to add to the stack.
 		- isReplacing is whether the new state should replace the current state.
 	 */
-	void AddState(StateRef newState, bool isReplacing = true);
+	void AddState(StateRef newState, bool isReplacing = true, bool isReplacingAll = false);
 	/*
 	 Removes the last state in the stack.
 	 */
@@ -49,4 +49,6 @@ private:
 	bool _isAdding;
 	// If the program is replacing the current state with a new state.
 	bool _isReplacing;
+  // If the program is replacing the current state with a new state.
+  bool _isReplacingAll;
 };
